@@ -170,7 +170,7 @@ export default function PropertyDetails() {
                 flex items-center justify-center 
                 rounded-full 
                 text-white cursor-pointer
-                ${activeIndex === 0 ? "bg-transparent/20 backdrop-blur-sm" : "bg-transparent/30 backdrop-blur-sm"}
+                ${activeIndex === 0 ? "bg-[#72c48a] lg:bg-transparent/20 lg:backdrop-blur-sm" : "bg-[#72c48a] lg:bg-transparent/30 lg:backdrop-blur-sm"}
             `}
                             >
                                 <IoIosArrowBack size={18} />
@@ -185,7 +185,7 @@ export default function PropertyDetails() {
                 flex items-center justify-center 
                 rounded-full 
                 text-white cursor-pointer
-                ${activeIndex === images.length - 1 ? "bg-transparent/20 backdrop-blur-sm" : "bg-transparent/30 backdrop-blur-sm"}
+                ${activeIndex === images.length - 1 ? "bg-[#72c48a] lg:bg-transparent/20 lg:backdrop-blur-sm" : "bg-[#72c48a] lg:bg-transparent/30 lg:backdrop-blur-sm"}
             `}
                             >
                                 <IoIosArrowForward size={18} />
