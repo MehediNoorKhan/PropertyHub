@@ -1,0 +1,30 @@
+[
+  {
+    "id":1,
+    "name": "Sarah Mitchell",
+    "location": "Manchester",
+    "rating": 5,
+    "review": "Absolutely stunning property! The attention to detail was incredible and the booking process was seamless. Can't wait to return!"
+  },
+  { 
+    "id":2,
+    "name": "James Turner",
+    "location": "London",
+    "rating": 5,
+    "review": "A beautiful and well-maintained property. Customer service was excellent and everything was as described."
+  },
+  {
+    "id":3,
+    "name": "Emily Johnson",
+    "location": "Bristol",
+    "rating": 5,
+    "review": "Loved the stay! Amazing location and top-notch amenities. Highly recommend for a relaxing getaway."
+  },
+  {
+    "id":4,
+    "name": "Daniel Carter",
+    "location": "Birmingham",
+    "rating": 5,
+    "review": "The property exceeded expectations. Great interiors and the support staff was helpful at every step."
+  }
+]
