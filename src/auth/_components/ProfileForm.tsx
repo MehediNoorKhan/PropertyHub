@@ -3,7 +3,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldSeparator } from "@/components/ui/field";
+// import { FieldSeparator } from "@/components/ui/field";
 
 import { useLoginMutation } from "@/store/api/auth.api";
 import { loginSuccess } from "@/store/slices/auth.slices";
@@ -42,27 +42,24 @@ export function ProfileForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      // 🔥 Make API call using RTK Query
-      const response = await login({
-        email: values.username,
-        password: values.password,
-      }).unwrap();
+async function onSubmit(values: z.infer<typeof formSchema>) {
+  try {
+    const response = await login({
+      email: values.username,
+      password: values.password,
+    }).unwrap();
 
-      // 🔥 Save auth data to Redux
-      dispatch(loginSuccess(response));
+    // ✅ Save ONLY to Redux
+    dispatch(loginSuccess(response));
 
-      // 🎉 SUCCESS TOAST
-      toast.success("🎉 You've successfully logged in!");
-
-      // 🔥 Redirect to home page
-      navigate("/");
-    } catch (err) {
-      console.error("Login failed:", err);
-      toast.error("Invalid email or password!");
-    }
+    toast.success("🎉 You've successfully logged in!");
+    navigate("/");
+  } catch (err) {
+    console.error("Login failed:", err);
+    toast.error("Invalid email or password!");
   }
+}
+
 
   return (
     <div className="relative flex flex-col min-h-screen px-6">
@@ -129,12 +126,24 @@ export function ProfileForm() {
                 Login failed. Please check your credentials.
               </p>
             )}
+             
+             {/* FORGOT PASSWORD ROW */}
+<div className="w-full flex justify-between items-center mt-4">
+  <div /> {/* ✅ Left side intentionally empty */}
+  <button
+    type="button"
+    onClick={() => navigate("/enteremail")}
+    className="2xl:text-[18px] text-[#3D3D3D] font-light cursor-pointer"
+  >
+    Forgot Password?
+  </button>
+</div>
 
             {/* SUBMIT BUTTON */}
             <Button
               type="submit"
               disabled={isLoading}
-              className="mt-[40px] bg-[#7FA38B] w-full rounded-2xl"
+              className="mt-[40px] bg-[#7FA38B] w-full rounded-2xl cursor-pointer"
             >
               {isLoading ? "Logging in..." : "Submit"}
             </Button>
@@ -142,7 +151,7 @@ export function ProfileForm() {
         </form>
       </Form>
 
-      <div className="w-full flex justify-center mt-[24px]">
+      {/* <div className="w-full flex justify-center mt-[24px]">
         <div className="w-full max-w-[360px]">
           <FieldSeparator>
             <span className="text-[#000000] font-semibold">
@@ -150,17 +159,17 @@ export function ProfileForm() {
             </span>
           </FieldSeparator>
         </div>
-      </div>
+      </div> */}
 
-      <div className="flex justify-center py-6">
+      {/* <div className="flex justify-center py-6">
         <FcGoogle className="w-10 h-10 cursor-pointer" />
-      </div>
+      </div> */}
 
       <div className="mt-auto mb-6 text-center">
         <p className="text-[24px] font-bold">
           Don’t have an account?
           <button
-            className="text-[#7FA38B] ml-1"
+            className="text-[#7FA38B] ml-1 cursor-pointer"
             onClick={() => navigate("/signup")}
           >
             <span className="text-[24px] font-normal"> Sign Up</span>

@@ -18,30 +18,32 @@
 // export type AppDispatch = typeof store.dispatch;
 
 
-import { configureStore } from "@reduxjs/toolkit";
-import { baseApi } from "./api"; // ✅ your baseApi
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { baseApi } from "./api";
 import authReducer from "@/store/slices/auth.slices";
 
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
-const persistConfig = {
+const rootPersistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth"], // ✅ ONLY auth is persisted
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const rootReducer = combineReducers({
+  auth: authReducer,
+  [baseApi.reducerPath]: baseApi.reducer,
+});
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    auth: persistedAuthReducer,
-    [baseApi.reducerPath]: baseApi.reducer, // ✅ REQUIRED
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(baseApi.middleware), // ✅✅✅ THIS FIXES YOUR ERROR
+    }).concat(baseApi.middleware),
 });
 
 export const persistor = persistStore(store);

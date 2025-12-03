@@ -235,7 +235,7 @@ async function onSubmit(values: z.infer<typeof signupSchema>) {
       </Form>
 
       {/* ✅ DIVIDER */}
-      <div className="w-full flex justify-center mt-[24px]">
+      {/* <div className="w-full flex justify-center mt-[24px]">
         <div className="w-full max-w-[360px]">
           <FieldSeparator className="bg-white">
             <span className="text-[#000000] font-semibold">
@@ -243,19 +243,19 @@ async function onSubmit(values: z.infer<typeof signupSchema>) {
             </span>
           </FieldSeparator>
         </div>
-      </div>
+      </div> */}
 
       {/* ✅ GOOGLE */}
-      <div className="flex justify-center py-6">
+      {/* <div className="flex justify-center py-6">
         <FcGoogle className="w-10 h-10 cursor-pointer" />
-      </div>
+      </div> */}
 
       {/* ✅ BOTTOM LINK */}
       <div className="mt-auto mb-[40px] text-center">
         <p className="text-[24px] font-light">
           Already have an account?
           <button
-            className="text-[#7FA38B] ml-1"
+            className="text-[#7FA38B] ml-1 cursor-pointer"
             onClick={() => navigate("/login")}
           >
             <span className="text-[24px] font-semibold"> Sign In</span>

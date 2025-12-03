@@ -9,9 +9,17 @@ import logo from "../../images/headerlogo.png";
 export default function Navbar() {
     const location = useLocation();
     const [open, setOpen] = useState(false);
-    const isAuthenticated = useSelector(
-  (state: RootState) => state.auth.isAuthenticated
+    const authFromRedux = useSelector((state: RootState) => state.auth);
+
+// ✅ Instant fallback from persisted storage (no delay)
+const persistedAuth = JSON.parse(
+  localStorage.getItem("persist:auth") || "null"
 );
+
+// ✅ Final safe auth check
+const isAuthenticated =
+  authFromRedux?.isAuthenticated || persistedAuth?.isAuthenticated;
+
 
 
     const navLinks = [
