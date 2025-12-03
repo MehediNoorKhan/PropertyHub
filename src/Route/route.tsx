@@ -1,12 +1,15 @@
 import AboutUs from "@/auth/_components/AboutUs";
 import AllProperties from "@/auth/_components/AllProperties";
+import ChnagePassword from "@/auth/_components/ChangePassword";
 import Contact from "@/auth/_components/Contact";
+import EnterEmail from "@/auth/_components/EnterEmail";
 import Home from "@/auth/_components/Home";
 import Login from "@/auth/_components/Login";
 import MakePayment from "@/auth/_components/MakePayment";
 import PropertyDetails from "@/auth/_components/PropertyDetails";
 import RootLayout from "@/auth/_components/RootLayout";
 import Signup from "@/auth/_components/Signup";
+import Verification from "@/auth/_components/Verification";
 import { createBrowserRouter } from "react-router";
 
 
@@ -47,6 +50,18 @@ export const router = createBrowserRouter([
             {
                 path: "contact",
                 element: <Contact />
+            },
+            {
+                path: "enteremail",
+                element: <EnterEmail/>
+            },
+            {
+                path: "verification",
+                element: <Verification></Verification>
+            },
+            {
+                path: "changepassword",
+                element: <ChnagePassword></ChnagePassword>
             },
 
         ]
