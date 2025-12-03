@@ -64,7 +64,7 @@ export default function Navbar() {
 
                 {/* Desktop Button */}
                 <Link
-                    to="/allproperties"
+                    to="/login"
                     className="
                         hidden md:block 
                         bg-[#7FA38B] text-white 
