@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
@@ -7,6 +9,10 @@ import logo from "../../images/headerlogo.png";
 export default function Navbar() {
     const location = useLocation();
     const [open, setOpen] = useState(false);
+    const isAuthenticated = useSelector(
+  (state: RootState) => state.auth.isAuthenticated
+);
+
 
     const navLinks = [
         { label: "Home", href: "/" },
@@ -64,22 +70,23 @@ export default function Navbar() {
 
                 {/* Desktop Button */}
                 <Link
-                    to="/login"
-                    className="
-                        hidden md:block 
-                        bg-[#7FA38B] text-white 
-                        px-4 py-2 
-                        md:px-5 md:py-2 
-                        lg:px-6 lg:py-3 
-                        rounded-full 
-                        text-[15px] 
-                        md:text-[16px] 
-                        lg:text-[20px] 
-                        hover:bg-[#5d8d6d] cursor-pointer
-                    "
-                >
-                    Book now
-                </Link>
+  to={isAuthenticated ? "/allproperties" : "/login"}
+  className="
+    hidden md:block 
+    bg-[#7FA38B] text-white 
+    px-4 py-2 
+    md:px-5 md:py-2 
+    lg:px-6 lg:py-3 
+    rounded-full 
+    text-[15px] 
+    md:text-[16px] 
+    lg:text-[20px] 
+    hover:bg-[#5d8d6d] cursor-pointer
+  "
+>
+  Book now
+</Link>
+
 
                 {/* Hamburger icon (mobile only) */}
                 <button
@@ -120,7 +127,7 @@ export default function Navbar() {
 
                     {/* Mobile Button */}
                     <Link
-                        to="/allproperties"
+                         to={isAuthenticated ? "/allproperties" : "/login"}
                         className="bg-[#7FA38B] text-white px-6 py-3 rounded-full text-[18px] hover:bg-[#5d8d6d] cursor-pointer"
                     >
                         Book now
