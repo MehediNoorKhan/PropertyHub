@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldSeparator } from "@/components/ui/field";
+// import { FieldSeparator } from "@/components/ui/field";
 
 /* -------------------- ✅ ZOD SCHEMA -------------------- */
 
