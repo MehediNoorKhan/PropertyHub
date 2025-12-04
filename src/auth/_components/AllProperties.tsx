@@ -576,15 +576,89 @@ const AllProperties: React.FC = () => {
   const [maxPrice, setMaxPrice] = useState<string>("");
 
   const [showFilterDrop, setShowFilterDrop] = useState(false);
+  const [sortType, setSortType] = useState<"up" | "down" | null>(null);
+  const [priceError, setPriceError] = useState<string>("");
 
+
+
+  // const applyFilters = () => {
+    
+  // };
+  
   const applyFilters = () => {
-    console.log({ locationQ, minPrice, maxPrice });
-  };
+  if (minPrice && !maxPrice) {
+    setPriceError("Please select a maximum price");
+    return;
+  }
 
-  const handleSort = (type: string) => {
-    console.log("Sorting:", type);
-    setShowFilterDrop(false);
-  };
+  if (!minPrice && maxPrice) {
+    setPriceError("Please select a minimum price");
+    return;
+  }
+
+  setPriceError(""); // ✅ clear error if valid
+};
+
+ const handleSort = (type: string) => {
+  setSortType(type as "up" | "down");
+  setShowFilterDrop(false);
+};
+
+
+const filteredProperties = properties.filter((item: any) => {
+  const location = item.location?.toLowerCase() || "";
+  const search = locationQ.trim().toLowerCase();
+
+  // ✅ LOCATION FILTER
+  const matchesLocation =
+    search === "" ? true : location.startsWith(search);
+
+  // ✅ PRICE FILTER
+  const price = Number(item.price);
+
+  const min = minPrice ? Number(minPrice) : null;
+  const max = maxPrice ? Number(maxPrice) : null;
+
+  const matchesPrice =
+    min !== null && max !== null
+      ? price >= min && price <= max
+      : true;
+
+  return matchesLocation && matchesPrice;
+});
+
+// ✅ SORTING STILL APPLIES AFTER FILTERING
+const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
+  if (!sortType) return 0;
+
+  if (sortType === "up") {
+    return b.price - a.price; // ✅ HIGH → LOW
+  }
+
+  if (sortType === "down") {
+    return a.price - b.price; // ✅ LOW → HIGH
+  }
+
+  return 0;
+});
+
+
+// ✅ SORT STILL WORKS ON FILTERED DATA
+// const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
+//   if (!sortType) return 0;
+
+//   if (sortType === "up") {
+//     return b.price - a.price; // ✅ High → Low
+//   }
+
+//   if (sortType === "down") {
+//     return a.price - b.price; // ✅ Low → High
+//   }
+
+//   return 0;
+// });
+
+
 
   if (isLoading) {
     return <div className="text-center py-20 text-lg">Loading properties...</div>;
@@ -652,7 +726,6 @@ const AllProperties: React.FC = () => {
               {[
                 { label: "Price Up", action: "up" },
                 { label: "Price Down", action: "down" },
-                { label: "Rent", action: "rent" },
               ].map((item) => (
                 <li
                   key={item.action}
@@ -715,6 +788,10 @@ const AllProperties: React.FC = () => {
                   h-12
                 "
               />
+
+                         {priceError && (
+  <p className="text-red-500 text-sm mt-1">{priceError}</p>
+)}
             </div>
 
             <div className="flex-1 min-w-[200px]">
@@ -736,6 +813,10 @@ const AllProperties: React.FC = () => {
                   h-12
                 "
               />
+              {priceError && (
+  <p className="text-red-500 text-sm mt-1">{priceError}</p>
+)}
+
             </div>
 
             <div className="w-full pt-2">
@@ -759,7 +840,8 @@ const AllProperties: React.FC = () => {
 
         {/* ✅ PROPERTY GRID (STYLE PRESERVED) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
-          {properties.map((item: any) => {
+          {sortedProperties.map((item: any) => {
+
 
   // ✅ 1. SAFELY EXTRACT IMAGE ARRAY (NO RE-PARSING LOOP)
   let imageArray: string[] = [];
