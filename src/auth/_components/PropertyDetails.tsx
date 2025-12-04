@@ -538,7 +538,479 @@
 
 
 
-import { useState, useRef, useEffect, useMemo } from "react";
+// import { useState, useRef, useEffect, useMemo } from "react";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/css";
+// import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+// import { useParams, useNavigate } from "react-router";
+// import type { Swiper as SwiperType } from "swiper";
+// import sectionbg from "../../images/propertydetailsbg.png";
+// import checkinicon from "../../images/checkinicon.png";
+// import checkouticon from "../../images/checkouticon.png";
+// import locationicongreen from "../../images/locationgreenicon.png";
+// import locationIcon from "../../images/locationicon.png";
+// import staricon from "../../images/staricon.png";
+// import guesticon from "../../images/guesticon.png";
+// import bedroomicon from "../../images/bedroomicon.png";
+// import bathroomicon from "../../images/bathroomicon.png";
+
+// import ReviewChatModal from "./ReviewChatModal";
+// import PropertyReviewsCarousel from "./PropertyReviewsCarousel";
+
+// import {
+//     useGetSinglePropertyQuery,
+//     useGetAllPropertiesQuery,
+//     useGetAmenitiesQuery
+// } from "@/store/api/auth.api";
+
+// import toast from "react-hot-toast";
+// import { useSelector } from "react-redux";
+
+
+// export default function PropertyDetails() {
+//     const { id } = useParams();
+//     const navigate = useNavigate();
+//     const { data: allPropertiesData, isLoading: relatedLoading } =
+//         useGetAllPropertiesQuery();
+
+//     const { data, isLoading } = useGetSinglePropertyQuery(id!);
+
+//     const property = data?.data;
+
+//     const { data: amenitiesData, isLoading: amenitiesLoading } =
+//         useGetAmenitiesQuery(property?.id, {
+//             skip: !property?.id,
+//         });
+//     const amenities = amenitiesData?.data || [];
+// const isLoggedIn = useSelector((state: any) => state.auth?.token);
+
+
+
+
+
+//     // ✅ FIXED IMAGE HANDLING (NO FLICKER)
+//     const images = useMemo(() => {
+//         if (!property) return ["/placeholder.png"];
+
+//         const rawImages = [
+//             ...(Array.isArray(property.main_image) ? property.main_image : []),
+//             ...(Array.isArray(property.multiple_image)
+//                 ? property.multiple_image
+//                 : []),
+//         ];
+
+//         if (rawImages.length === 0) return ["/placeholder.png"];
+
+//         return rawImages.map((img: string) =>
+//             img.startsWith("http")
+//                 ? img
+//                 : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${img.replace(
+//                     /^\//,
+//                     ""
+//                 )}`
+//         );
+//     }, [property]);
+
+//     useEffect(() => {
+//         if (property) {
+//             document.title = `${property.title} | Booking | GuestPro`;
+//         }
+//     }, [property]);
+
+//     const relatedProperties =
+//         allPropertiesData?.data
+//             ?.filter((p) => String(p.id) !== String(id))
+//             .slice(0, 3) || [];
+
+
+//     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+//     const mainSwiperRef = useRef<SwiperType | null>(null);
+//     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+//     const [checkIn, setCheckIn] = useState("");
+//     const [checkOut, setCheckOut] = useState("");
+//     const checkInRef = useRef<HTMLInputElement>(null);
+//     const checkOutRef = useRef<HTMLInputElement>(null);
+
+//     const [guests, setGuests] = useState(2);
+
+//     // ✅ PRICE CALCULATION
+//     const nights = 3;
+//     const rentTotal = property?.price * nights || 0;
+//     const cleaningFee = property?.cleaning_fee || 0;
+//     const totalPrice = rentTotal + cleaningFee;
+
+//     if (isLoading) {
+//         return <div className="p-10 text-center text-xl">Loading Property...</div>;
+//     }
+
+//     if (!property) {
+//         return (
+//             <div className="p-10 text-center text-red-500 text-xl font-semibold">
+//                 Property Not Found
+//             </div>
+//         );
+//     }
+
+//     return (
+//         <div>
+//             {/* ================= PAGE HEADING ================= */}
+//             <div
+//                 className="w-full h-[260px] md:h-[350px] bg-cover bg-center flex items-center justify-center text-white text-[40px] md:text-[80px] font-bold"
+//                 style={{
+//                     backgroundImage: `linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(${sectionbg})`,
+//                 }}
+//             >
+//                 Properties Booking
+//             </div>
+
+//             <div className="px-4 md:px-[120px] pb-20">
+//                 <div className="flex flex-col lg:flex-row gap-8 mt-12">
+
+//                     {/* ================= LEFT — CAROUSEL ================= */}
+//                     <div className="w-full lg:w-[60%] relative">
+//                         <Swiper
+//                             loop={false}
+//                             spaceBetween={10}
+//                             thumbs={{ swiper: thumbsSwiper }}
+//                             modules={[FreeMode, Navigation, Thumbs]}
+//                             onSwiper={(swiper) => (mainSwiperRef.current = swiper)}
+//                             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+//                             className="rounded-xl"
+//                         >
+//                             {images.map((img, i) => (
+//                                 <SwiperSlide key={i}>
+//                                     <img
+//                                         src={img}
+//                                         className="w-full h-[400px] object-cover rounded-xl"
+//                                         loading="lazy"
+//                                         onError={(e) => {
+//                                             if (e.currentTarget.src.includes("placeholder")) return;
+//                                             e.currentTarget.src = "/placeholder.png";
+//                                         }}
+//                                     />
+//                                 </SwiperSlide>
+//                             ))}
+//                         </Swiper>
+
+//                         <Swiper
+//                             onSwiper={setThumbsSwiper}
+//                             spaceBetween={10}
+//                             slidesPerView={4}
+//                             freeMode
+//                             watchSlidesProgress
+//                             modules={[FreeMode, Navigation, Thumbs]}
+//                             className="mt-4"
+//                         >
+//                             {images.map((img, i) => (
+//                                 <SwiperSlide key={i}>
+//                                     <img
+//                                         src={img}
+//                                         className={`w-full h-20 object-cover rounded-lg cursor-pointer ${activeIndex === i ? "opacity-100" : "opacity-40"
+//                                             }`}
+//                                         onError={(e) => {
+//                                             if (e.currentTarget.src.includes("placeholder")) return;
+//                                             e.currentTarget.src = "/placeholder.png";
+//                                         }}
+//                                     />
+//                                 </SwiperSlide>
+//                             ))}
+//                         </Swiper>
+//                     </div>
+
+//                     {/* ================= RIGHT — BOOKING CARD ================= */}
+//                     <div className="w-full lg:w-[40%] max-w-md mx-auto">
+//                         <div className="border rounded-xl p-6 shadow-sm bg-white">
+
+//                             {/* CHECK-IN */}
+//                             <div className="relative mb-4">
+//                                 <div
+//                                     className="flex items-center bg-gray-100 rounded-full px-4 py-3 cursor-pointer"
+//                                     onClick={() => checkInRef.current?.showPicker()}
+//                                 >
+//                                     <img src={checkinicon} className="w-5 mr-3" />
+//                                     {checkIn || "Check-in"}
+//                                 </div>
+//                                 <input
+//                                     ref={checkInRef}
+//                                     type="date"
+//                                     value={checkIn}
+//                                     onChange={(e) => setCheckIn(e.target.value)}
+//                                     className="absolute inset-0 opacity-0"
+//                                 />
+//                             </div>
+
+//                             {/* CHECK-OUT */}
+//                             <div className="relative mb-4">
+//                                 <div
+//                                     className="flex items-center bg-gray-100 rounded-full px-4 py-3 cursor-pointer"
+//                                     onClick={() => checkOutRef.current?.showPicker()}
+//                                 >
+//                                     <img src={checkouticon} className="w-5 mr-3" />
+//                                     {checkOut || "Check-out"}
+//                                 </div>
+//                                 <input
+//                                     ref={checkOutRef}
+//                                     type="date"
+//                                     value={checkOut}
+//                                     onChange={(e) => setCheckOut(e.target.value)}
+//                                     className="absolute inset-0 opacity-0"
+//                                 />
+//                             </div>
+
+//                             {/* GUESTS */}
+//                             <div className="flex items-center justify-between bg-gray-100 rounded-full px-4 py-3 mb-6">
+//                                 <div className="flex items-center gap-3">
+//                                     <img src={guesticon} className="w-5" />
+//                                     {guests} Guests
+//                                 </div>
+//                                 <div className="flex gap-3">
+//                                     <button onClick={() => setGuests((p) => Math.max(1, p - 1))}>–</button>
+//                                     <button onClick={() => setGuests((p) => Math.min(20, p + 1))}>+</button>
+//                                 </div>
+//                             </div>
+
+//                             {/* ✅ PRICE BREAKDOWN */}
+//                             <div className="space-y-2 text-gray-700 mb-6">
+//                                 <div className="flex justify-between">
+//                                     <span>${property.price} × {nights} nights</span>
+//                                     <span>${rentTotal}</span>
+//                                 </div>
+//                                 <div className="flex justify-between">
+//                                     <span>Cleaning Fee</span>
+//                                     <span>${cleaningFee}</span>
+//                                 </div>
+//                                 <div className="flex justify-between font-bold border-t pt-2">
+//                                     <span>Total</span>
+//                                     <span>${totalPrice}</span>
+//                                 </div>
+//                             </div>
+
+//                             <button
+//                                 onClick={() => navigate(`/make-payment/${id}`)}
+//                                 className="w-full bg-[#7FA38B] text-white py-3 rounded-full font-medium"
+//                             >
+//                                 Book Now
+//                             </button>
+
+//                             <p className="text-center mt-4 text-gray-600">
+//                                 You won’t be charged yet
+//                             </p>
+//                         </div>
+//                     </div>
+//                 </div>
+
+//                <div className="w-full flex justify-start">
+//   {/* ✅ LEFT SIDE (60%) */}
+//   <div className="w-full lg:w-[60%]">
+    
+//     {/* 🔽🔽🔽 YOUR EXISTING CODE GOES HERE (UNCHANGED) 🔽🔽🔽 */}
+
+//     <h2 className="text-3xl font-bold mt-12">{property.title}</h2>
+
+//     <div className="flex items-center gap-6 mt-3">
+//       <div className="flex items-center gap-2">
+//         <img src={locationicongreen} className="w-5" />
+//         {property.location}
+//       </div>
+//       <div className="flex items-center gap-2">
+//         <img src={staricon} className="w-5" />
+//         {property.rating || 0} ({property.total_reviews} reviews)
+//       </div>
+//     </div>
+
+//     {/* ✅ BEDROOMS, BATHROOMS, GUESTS + PRICE */}
+//     <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mt-6">
+
+//       <div className="flex flex-wrap gap-2 sm:gap-3">
+//         <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
+//           <img src={bedroomicon} className="w-4 sm:w-5" />
+//           {property.bedrooms} Bedrooms
+//         </div>
+
+//         <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
+//           <img src={bathroomicon} className="w-4 sm:w-5" />
+//           {property.bathrooms} Bathrooms
+//         </div>
+
+//         <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
+//           <img src={guesticon} className="w-4 sm:w-5" />
+//           Up to {property.max_guests} Guests
+//         </div>
+//       </div>
+
+//       <div className="text-[28px] sm:text-[32px] font-bold text-[#7FA38B]">
+//         ${property.price}
+//         <span className="text-gray-500 text-[16px] sm:text-[18px] ml-1">/ night</span>
+//       </div>
+//     </div>
+
+//     {/* ✅ ABOUT THIS PROPERTY */}
+//     <h3 className="text-2xl font-semibold mt-10">About This Property</h3>
+//     <p className="mt-4 text-gray-700">{property.description}</p>
+
+//     {/* ✅ AMENITIES */}
+//     <div className="mt-10 w-full lg:w-[40%]">
+//       <h2 className="text-2xl font-semibold mb-5">Amenities</h2>
+
+//       {amenitiesLoading ? (
+//         <p className="text-gray-500">Loading amenities...</p>
+//       ) : amenities.length === 0 ? (
+//         <p className="text-gray-500 italic">No amenities listed for this property.</p>
+//       ) : (
+//         <div className="flex flex-wrap gap-3">
+//           {amenities.map((item: any) => (
+//             <div
+//               key={item.id}
+//               className="flex items-center gap-2 bg-gray-100 px-6 py-3 rounded-full text-sm"
+//             >
+//               {item.name}
+//             </div>
+//           ))}
+//         </div>
+//       )}
+//     </div>
+
+//     {/* 🔼🔼🔼 YOUR EXISTING CODE ENDS HERE 🔼🔼🔼 */}
+
+//   </div>
+
+//   {/* ✅ RIGHT SIDE (EMPTY 40%) */}
+//   <div className="hidden lg:block w-[40%]" />
+// </div>
+
+
+//                 {/* ================= ✅ RELATED PROPERTIES (STYLE MATCHED) ================= */}
+//                 <div className="mt-16">
+//                     <h2 className="text-2xl font-semibold mb-6">Related Properties</h2>
+
+//                     {relatedLoading ? (
+//                         <p className="text-gray-500">Loading related properties...</p>
+//                     ) : relatedProperties.length === 0 ? (
+//                         <p className="text-gray-500 italic">No related properties found.</p>
+//                     ) : (
+//                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+//                             {relatedProperties.map((item) => {
+
+//                                 // ✅ 1. SAFELY EXTRACT IMAGE ARRAY (NO RE-PARSING LOOP)
+//                                 let imageArray: string[] = [];
+
+//                                 if (Array.isArray(item.main_image)) {
+//                                     imageArray = item.main_image;
+//                                 } else if (typeof item.main_image === "string") {
+//                                     try {
+//                                         const parsed = JSON.parse(item.main_image);
+//                                         if (Array.isArray(parsed)) {
+//                                             imageArray = parsed;
+//                                         }
+//                                     } catch (error) {
+//                                         imageArray = [];
+//                                     }
+//                                 }
+
+//                                 // ✅ 2. BUILD A STABLE FINAL IMAGE URL (NO CHANGE PER RENDER)
+//                                 const stableImageUrl =
+//                                     imageArray.length > 0 && imageArray[0]
+//                                         ? imageArray[0].startsWith("http")
+//                                             ? imageArray[0]
+//                                             : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${imageArray[0].replace(/^\//, "")}`
+//                                         : "/placeholder.png";
+
+//                                 return (
+//                                     <div
+//                                         key={item.id}
+//                                         className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 w-full flex flex-col"
+//                                     >
+//                                         <img
+//                                             src={stableImageUrl}
+//                                             alt={item.title}
+//                                             className="w-full h-40 sm:h-48 md:h-52 lg:h-56 object-cover"
+//                                             loading="lazy"
+
+//                                             // ✅ 3. HARD STOP INFINITE ERROR LOOP (NO MORE FLICKER)
+//                                             onError={(e) => {
+//                                                 if (e.currentTarget.src.includes("placeholder")) return;
+//                                                 e.currentTarget.src = "/placeholder.png";
+//                                             }}
+//                                         />
+
+//                                         <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between h-full">
+//                                             <div className="flex flex-col gap-3 flex-grow">
+
+//                                                 <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#171717] font-semibold break-words">
+//                                                     {item.title}
+//                                                 </h3>
+
+//                                                 <div className="flex items-center justify-between">
+//                                                     <div className="flex items-center gap-1">
+//                                                         <img src={locationIcon} className="w-4 h-4" />
+//                                                         <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252] break-words">
+//                                                             {item.location}
+//                                                         </span>
+//                                                     </div>
+
+//                                                     <div className="flex items-center gap-1">
+//                                                         <img src={staricon} className="w-4 h-4" />
+//                                                         <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252]">
+//                                                             {item.rating || 0}
+//                                                         </span>
+//                                                     </div>
+//                                                 </div>
+
+//                                                 <div className="flex items-center">
+//                                                     <img src={guesticon} className="w-4 h-4" />
+//                                                     <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252] ml-1">
+//                                                         {item.max_guests} guests
+//                                                     </span>
+//                                                 </div>
+
+//                                             </div>
+
+//                                             <div className="flex items-center justify-between mt-4 border-t border-[#E5E5E5] pt-3">
+//                                                 <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl">
+//                                                     £{item.price}
+//                                                     <span className="text-[#737373] text-xs sm:text-sm md:text-base">
+//                                                         {" "} / night
+//                                                     </span>
+//                                                 </p>
+
+//                                                 <button
+//                                                     onClick={() => navigate(`/property/${item.id}`)}
+//                                                     className="
+//                     bg-[#7FA38B] text-white
+//                     py-1.5 md:py-1
+//                     px-4 md:px-3
+//                     rounded-full
+//                     text-xs sm:text-sm md:text-base
+//                     hover:bg-[#6e927c]
+//                     transition
+//                     cursor-pointer
+//                   "
+//                                                 >
+//                                                     View Details
+//                                                 </button>
+//                                             </div>
+//                                         </div>
+//                                     </div>
+//                                 );
+//                             })}
+//                         </div>
+//                     )}
+//                 </div>
+
+
+
+
+//                 <ReviewChatModal />
+//                 <PropertyReviewsCarousel propertyId={property.id} />
+//             </div>
+//         </div>
+//     );
+// }
+
+
+
+import { useState, useRef, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
@@ -558,412 +1030,464 @@ import ReviewChatModal from "./ReviewChatModal";
 import PropertyReviewsCarousel from "./PropertyReviewsCarousel";
 
 import {
-    useGetSinglePropertyQuery,
-    useGetAllPropertiesQuery,
-    useGetAmenitiesQuery
+  useGetSinglePropertyQuery,
+  useGetAllPropertiesQuery,
+  useGetAmenitiesQuery,
 } from "@/store/api/auth.api";
 
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+
 export default function PropertyDetails() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const { data: allPropertiesData, isLoading: relatedLoading } =
-        useGetAllPropertiesQuery();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const { data, isLoading } = useGetSinglePropertyQuery(id!);
+  // related properties (all)
+  const { data: allPropertiesData, isLoading: relatedLoading } =
+    useGetAllPropertiesQuery();
 
-    const property = data?.data;
+  // single property
+  const { data, isLoading } = useGetSinglePropertyQuery(id!);
+  const property = data?.data;
 
-    const { data: amenitiesData, isLoading: amenitiesLoading } =
-        useGetAmenitiesQuery(property?.id, {
-            skip: !property?.id,
-        });
-    const amenities = amenitiesData?.data || [];
+  // amenities for property (skip if no property id)
+  const { data: amenitiesData, isLoading: amenitiesLoading } =
+    useGetAmenitiesQuery(property?.id, {
+      skip: !property?.id,
+    });
+  const amenities = amenitiesData?.data || [];
 
+  // --- AUTH CHECK (Redux first, then fallbacks to persisted storage) ---
+  const authFromRedux = useSelector((state: any) => state.auth);
 
+  const isLoggedIn = useMemo(() => {
+    try {
+      // 1) prefer redux flag if present
+      if (authFromRedux && typeof authFromRedux.isAuthenticated !== "undefined") {
+        return !!authFromRedux.isAuthenticated;
+      }
 
-
-
-    // ✅ FIXED IMAGE HANDLING (NO FLICKER)
-    const images = useMemo(() => {
-        if (!property) return ["/placeholder.png"];
-
-        const rawImages = [
-            ...(Array.isArray(property.main_image) ? property.main_image : []),
-            ...(Array.isArray(property.multiple_image)
-                ? property.multiple_image
-                : []),
-        ];
-
-        if (rawImages.length === 0) return ["/placeholder.png"];
-
-        return rawImages.map((img: string) =>
-            img.startsWith("http")
-                ? img
-                : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${img.replace(
-                    /^\//,
-                    ""
-                )}`
-        );
-    }, [property]);
-
-    useEffect(() => {
-        if (property) {
-            document.title = `${property.title} | Booking | GuestPro`;
+      // 2) try localStorage key "auth" (your format: "{"isAuthenticated":true}")
+      const rawAuth = localStorage.getItem("auth");
+      if (rawAuth) {
+        const parsed = JSON.parse(rawAuth);
+        if (typeof parsed?.isAuthenticated !== "undefined") {
+          return !!parsed.isAuthenticated;
         }
-    }, [property]);
+      }
 
-    const relatedProperties =
-        allPropertiesData?.data
-            ?.filter((p) => String(p.id) !== String(id))
-            .slice(0, 3) || [];
-
-
-    const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-    const mainSwiperRef = useRef<SwiperType | null>(null);
-    const [activeIndex, setActiveIndex] = useState<number>(0);
-
-    const [checkIn, setCheckIn] = useState("");
-    const [checkOut, setCheckOut] = useState("");
-    const checkInRef = useRef<HTMLInputElement>(null);
-    const checkOutRef = useRef<HTMLInputElement>(null);
-
-    const [guests, setGuests] = useState(2);
-
-    // ✅ PRICE CALCULATION
-    const nights = 3;
-    const rentTotal = property?.price * nights || 0;
-    const cleaningFee = property?.cleaning_fee || 0;
-    const totalPrice = rentTotal + cleaningFee;
-
-    if (isLoading) {
-        return <div className="p-10 text-center text-xl">Loading Property...</div>;
+      // 3) try persisted object "persist:auth" (some setups put JSON string here)
+      const persisted = localStorage.getItem("persist:auth");
+      if (persisted) {
+        // persisted often contains stringified object values, try parse safely
+        const parsedPersist = JSON.parse(persisted);
+        // parsedPersist may have a JSON string under "auth" key
+        if (parsedPersist?.auth) {
+          try {
+            const inner = JSON.parse(parsedPersist.auth);
+            if (typeof inner?.isAuthenticated !== "undefined") {
+              return !!inner.isAuthenticated;
+            }
+          } catch {
+            // ignore inner parse error
+          }
+        }
+      }
+    } catch (e) {
+      // fall through to false
     }
+    return false;
+  }, [authFromRedux]);
 
-    if (!property) {
-        return (
-            <div className="p-10 text-center text-red-500 text-xl font-semibold">
-                Property Not Found
-            </div>
-        );
-    }
+  // --- IMAGES: build stable image array (no flicker) ---
+  const images = useMemo(() => {
+    if (!property) return ["/placeholder.png"];
 
+    // combine main_image and multiple_image if present
+    const rawImages: string[] = [
+      ...(Array.isArray(property.main_image) ? property.main_image : []),
+      ...(Array.isArray(property.multiple_image) ? property.multiple_image : []),
+    ];
+
+    if (rawImages.length === 0) return ["/placeholder.png"];
+
+    return rawImages.map((img: string) =>
+      img.startsWith("http")
+        ? img
+        : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${img.replace(
+            /^\//,
+            ""
+          )}`
+    );
+  }, [property]);
+
+  // related properties (exclude current), max 3
+  const relatedProperties =
+    allPropertiesData?.data
+      ?.filter((p: any) => String(p.id) !== String(id))
+      .slice(0, 3) || [];
+
+  // swiper refs and state
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const mainSwiperRef = useRef<SwiperType | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+
+  // booking inputs
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const checkInRef = useRef<HTMLInputElement>(null);
+  const checkOutRef = useRef<HTMLInputElement>(null);
+
+  const [guests, setGuests] = useState(2);
+
+  // price calculations (kept as you had)
+  const nights = 3;
+  const rentTotal = property?.price * nights || 0;
+  const cleaningFee = property?.cleaning_fee || 0;
+  const totalPrice = rentTotal + cleaningFee;
+
+  if (isLoading) {
+    return <div className="p-10 text-center text-xl">Loading Property...</div>;
+  }
+
+  if (!property) {
     return (
-        <div>
-            {/* ================= PAGE HEADING ================= */}
-            <div
-                className="w-full h-[260px] md:h-[350px] bg-cover bg-center flex items-center justify-center text-white text-[40px] md:text-[80px] font-bold"
-                style={{
-                    backgroundImage: `linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(${sectionbg})`,
-                }}
+      <div className="p-10 text-center text-red-500 text-xl font-semibold">
+        Property Not Found
+      </div>
+    );
+  }
+
+  // BOOK NOW click handler (uses the auth check above)
+  const handleBookNow = () => {
+    if (!isLoggedIn) {
+      toast.error("You must log in to book this property");
+      navigate(`/login`)
+      return;
+    }
+    navigate(`/make-payment/${id}`);
+  };
+
+  return (
+    <div>
+      {/* ================= PAGE HEADING ================= */}
+      <div
+        className="w-full h-[260px] md:h-[350px] bg-cover bg-center flex items-center justify-center text-white text-[40px] md:text-[80px] font-bold"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url(${sectionbg})`,
+        }}
+      >
+        Properties Booking
+      </div>
+
+      <div className="px-4 md:px-[120px] pb-20">
+        <div className="flex flex-col lg:flex-row gap-8 mt-12">
+          {/* ================= LEFT — CAROUSEL ================= */}
+          <div className="w-full lg:w-[60%] relative">
+            <Swiper
+              loop={false}
+              spaceBetween={10}
+              thumbs={{ swiper: thumbsSwiper }}
+              modules={[FreeMode, Navigation, Thumbs]}
+              onSwiper={(swiper) => (mainSwiperRef.current = swiper)}
+              onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+              className="rounded-xl"
             >
-                Properties Booking
+              {images.map((img, i) => (
+                <SwiperSlide key={i}>
+                  <img
+                    src={img}
+                    className="w-full h-[400px] object-cover rounded-xl"
+                    loading="lazy"
+                    onError={(e) => {
+                      if (e.currentTarget.src.includes("placeholder")) return;
+                      e.currentTarget.src = "/placeholder.png";
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              spaceBetween={10}
+              slidesPerView={4}
+              freeMode
+              watchSlidesProgress
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="mt-4"
+            >
+              {images.map((img, i) => (
+                <SwiperSlide key={i}>
+                  <img
+                    src={img}
+                    className={`w-full h-20 object-cover rounded-lg cursor-pointer ${
+                      activeIndex === i ? "opacity-100" : "opacity-40"
+                    }`}
+                    onError={(e) => {
+                      if (e.currentTarget.src.includes("placeholder")) return;
+                      e.currentTarget.src = "/placeholder.png";
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* ================= RIGHT — BOOKING CARD ================= */}
+          <div className="w-full lg:w-[40%] max-w-md mx-auto">
+            <div className="border rounded-xl p-6 shadow-sm bg-white">
+              <div className="relative mb-4">
+                <div
+                  className="flex items-center bg-gray-100 rounded-full px-4 py-3 cursor-pointer"
+                  onClick={() => checkInRef.current?.showPicker()}
+                >
+                  <img src={checkinicon} className="w-5 mr-3" />
+                  {checkIn || "Check-in"}
+                </div>
+                <input
+                  ref={checkInRef}
+                  type="date"
+                  value={checkIn}
+                  onChange={(e) => setCheckIn(e.target.value)}
+                  className="absolute inset-0 opacity-0"
+                />
+              </div>
+
+              <div className="relative mb-4">
+                <div
+                  className="flex items-center bg-gray-100 rounded-full px-4 py-3 cursor-pointer"
+                  onClick={() => checkOutRef.current?.showPicker()}
+                >
+                  <img src={checkouticon} className="w-5 mr-3" />
+                  {checkOut || "Check-out"}
+                </div>
+                <input
+                  ref={checkOutRef}
+                  type="date"
+                  value={checkOut}
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  className="absolute inset-0 opacity-0"
+                />
+              </div>
+
+              <div className="flex items-center justify-between bg-gray-100 rounded-full px-4 py-3 mb-6">
+                <div className="flex items-center gap-3">
+                  <img src={guesticon} className="w-5" />
+                  {guests} Guests
+                </div>
+                <div className="flex gap-3">
+                  <button onClick={() => setGuests((p) => Math.max(1, p - 1))}>
+                    –
+                  </button>
+                  <button onClick={() => setGuests((p) => Math.min(20, p + 1))}>
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {/* ✅ PRICE BREAKDOWN */}
+              <div className="space-y-2 text-gray-700 mb-6">
+                <div className="flex justify-between">
+                  <span>${property.price} × {nights} nights</span>
+                  <span>${rentTotal}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Cleaning Fee</span>
+                  <span>${cleaningFee}</span>
+                </div>
+                <div className="flex justify-between font-bold border-t pt-2">
+                  <span>Total</span>
+                  <span>${totalPrice}</span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleBookNow}
+                className="w-full bg-[#7FA38B] text-white py-3 rounded-full font-medium"
+              >
+                Book Now
+              </button>
+
+              <p className="text-center mt-4 text-gray-600">
+                You won’t be charged yet
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ---------------- LEFT CONTENT (60%) + EMPTY RIGHT (40%) ---------------- */}
+        <div className="w-full flex justify-start">
+          {/* ✅ LEFT SIDE (60%) */}
+          <div className="w-full lg:w-[60%]">
+            {/* 🔽🔽🔽 YOUR EXISTING CODE GOES HERE (UNCHANGED) 🔽🔽🔽 */}
+            <h2 className="text-3xl font-bold mt-12">{property.title}</h2>
+
+            <div className="flex items-center gap-6 mt-3">
+              <div className="flex items-center gap-2">
+                <img src={locationicongreen} className="w-5" />
+                {property.location}
+              </div>
+              <div className="flex items-center gap-2">
+                <img src={staricon} className="w-5" />
+                {property.rating || 0} ({property.total_reviews} reviews)
+              </div>
             </div>
 
-            <div className="px-4 md:px-[120px] pb-20">
-                <div className="flex flex-col lg:flex-row gap-8 mt-12">
-
-                    {/* ================= LEFT — CAROUSEL ================= */}
-                    <div className="w-full lg:w-[60%] relative">
-                        <Swiper
-                            loop={false}
-                            spaceBetween={10}
-                            thumbs={{ swiper: thumbsSwiper }}
-                            modules={[FreeMode, Navigation, Thumbs]}
-                            onSwiper={(swiper) => (mainSwiperRef.current = swiper)}
-                            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-                            className="rounded-xl"
-                        >
-                            {images.map((img, i) => (
-                                <SwiperSlide key={i}>
-                                    <img
-                                        src={img}
-                                        className="w-full h-[400px] object-cover rounded-xl"
-                                        loading="lazy"
-                                        onError={(e) => {
-                                            if (e.currentTarget.src.includes("placeholder")) return;
-                                            e.currentTarget.src = "/placeholder.png";
-                                        }}
-                                    />
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-
-                        <Swiper
-                            onSwiper={setThumbsSwiper}
-                            spaceBetween={10}
-                            slidesPerView={4}
-                            freeMode
-                            watchSlidesProgress
-                            modules={[FreeMode, Navigation, Thumbs]}
-                            className="mt-4"
-                        >
-                            {images.map((img, i) => (
-                                <SwiperSlide key={i}>
-                                    <img
-                                        src={img}
-                                        className={`w-full h-20 object-cover rounded-lg cursor-pointer ${activeIndex === i ? "opacity-100" : "opacity-40"
-                                            }`}
-                                        onError={(e) => {
-                                            if (e.currentTarget.src.includes("placeholder")) return;
-                                            e.currentTarget.src = "/placeholder.png";
-                                        }}
-                                    />
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-                    </div>
-
-                    {/* ================= RIGHT — BOOKING CARD ================= */}
-                    <div className="w-full lg:w-[40%] max-w-md mx-auto">
-                        <div className="border rounded-xl p-6 shadow-sm bg-white">
-
-                            {/* CHECK-IN */}
-                            <div className="relative mb-4">
-                                <div
-                                    className="flex items-center bg-gray-100 rounded-full px-4 py-3 cursor-pointer"
-                                    onClick={() => checkInRef.current?.showPicker()}
-                                >
-                                    <img src={checkinicon} className="w-5 mr-3" />
-                                    {checkIn || "Check-in"}
-                                </div>
-                                <input
-                                    ref={checkInRef}
-                                    type="date"
-                                    value={checkIn}
-                                    onChange={(e) => setCheckIn(e.target.value)}
-                                    className="absolute inset-0 opacity-0"
-                                />
-                            </div>
-
-                            {/* CHECK-OUT */}
-                            <div className="relative mb-4">
-                                <div
-                                    className="flex items-center bg-gray-100 rounded-full px-4 py-3 cursor-pointer"
-                                    onClick={() => checkOutRef.current?.showPicker()}
-                                >
-                                    <img src={checkouticon} className="w-5 mr-3" />
-                                    {checkOut || "Check-out"}
-                                </div>
-                                <input
-                                    ref={checkOutRef}
-                                    type="date"
-                                    value={checkOut}
-                                    onChange={(e) => setCheckOut(e.target.value)}
-                                    className="absolute inset-0 opacity-0"
-                                />
-                            </div>
-
-                            {/* GUESTS */}
-                            <div className="flex items-center justify-between bg-gray-100 rounded-full px-4 py-3 mb-6">
-                                <div className="flex items-center gap-3">
-                                    <img src={guesticon} className="w-5" />
-                                    {guests} Guests
-                                </div>
-                                <div className="flex gap-3">
-                                    <button onClick={() => setGuests((p) => Math.max(1, p - 1))}>–</button>
-                                    <button onClick={() => setGuests((p) => Math.min(20, p + 1))}>+</button>
-                                </div>
-                            </div>
-
-                            {/* ✅ PRICE BREAKDOWN */}
-                            <div className="space-y-2 text-gray-700 mb-6">
-                                <div className="flex justify-between">
-                                    <span>${property.price} × {nights} nights</span>
-                                    <span>${rentTotal}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Cleaning Fee</span>
-                                    <span>${cleaningFee}</span>
-                                </div>
-                                <div className="flex justify-between font-bold border-t pt-2">
-                                    <span>Total</span>
-                                    <span>${totalPrice}</span>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={() => navigate(`/make-payment/${id}`)}
-                                className="w-full bg-[#7FA38B] text-white py-3 rounded-full font-medium"
-                            >
-                                Book Now
-                            </button>
-
-                            <p className="text-center mt-4 text-gray-600">
-                                You won’t be charged yet
-                            </p>
-                        </div>
-                    </div>
+            {/* ✅ BEDROOMS, BATHROOMS, GUESTS + PRICE */}
+            <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mt-6">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
+                  <img src={bedroomicon} className="w-4 sm:w-5" />
+                  {property.bedrooms} Bedrooms
                 </div>
 
-                {/* ================= PROPERTY DETAILS ================= */}
-                <h2 className="text-3xl font-bold mt-12">{property.title}</h2>
-
-                <div className="flex items-center gap-6 mt-3">
-                    <div className="flex items-center gap-2">
-                        <img src={locationicongreen} className="w-5" />
-                        {property.location}
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <img src={staricon} className="w-5" />
-                        {property.rating || 0} ({property.total_reviews} reviews)
-                    </div>
+                <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
+                  <img src={bathroomicon} className="w-4 sm:w-5" />
+                  {property.bathrooms} Bathrooms
                 </div>
 
-                {/* ✅ BEDROOMS, BATHROOMS, GUESTS + PRICE (STYLE PRESERVED WITH ICONS) */}
-                <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mt-6">
-
-                    {/* ✅ LEFT BUTTONS */}
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
-
-                        <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
-                            <img src={bedroomicon} className="w-4 sm:w-5" />
-                            {property.bedrooms} Bedrooms
-                        </div>
-
-                        <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
-                            <img src={bathroomicon} className="w-4 sm:w-5" />
-                            {property.bathrooms} Bathrooms
-                        </div>
-
-                        <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
-                            <img src={guesticon} className="w-4 sm:w-5" />
-                            Up to {property.max_guests} Guests
-                        </div>
-
-                    </div>
-
-                    {/* ✅ PRICE */}
-                    <div className="text-[28px] sm:text-[32px] font-bold text-[#7FA38B]">
-                        ${property.price}
-                        <span className="text-gray-500 text-[16px] sm:text-[18px] ml-1">/ night</span>
-                    </div>
-
+                <div className="flex items-center gap-1.5 sm:gap-2 border border-green-600 text-green-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
+                  <img src={guesticon} className="w-4 sm:w-5" />
+                  Up to {property.max_guests} Guests
                 </div>
+              </div>
 
+              <div className="text-[28px] sm:text-[32px] font-bold text-[#7FA38B]">
+                ${property.price}
+                <span className="text-gray-500 text-[16px] sm:text-[18px] ml-1">
+                  / night
+                </span>
+              </div>
+            </div>
 
-                {/* ✅ ABOUT THIS PROPERTY */}
-                <h3 className="text-2xl font-semibold mt-10">About This Property</h3>
-                <p className="mt-4 text-gray-700">{property.description}</p>
+            {/* ✅ ABOUT THIS PROPERTY */}
+            <h3 className="text-2xl font-semibold mt-10">About This Property</h3>
+            <p className="mt-4 text-gray-700">{property.description}</p>
 
-                {/* ✅ AMENITIES */}
-                <div className="mt-10 w-full lg:w-[40%]">
-                    <h2 className="text-2xl font-semibold mb-5">Amenities</h2>
+            {/* ✅ AMENITIES */}
+            <div className="mt-10 w-full lg:w-[40%]">
+              <h2 className="text-2xl font-semibold mb-5">Amenities</h2>
 
-                    {amenitiesLoading ? (
-                        <p className="text-gray-500">Loading amenities...</p>
-                    ) : amenities.length === 0 ? (
-                        <p className="text-gray-500 italic">No amenities listed for this property.</p>
-                    ) : (
-                        <div className="flex flex-wrap gap-3">
-                            {amenities.map((item: any) => (
-                                <div
-                                    key={item.id}
-                                    className="flex items-center gap-2 bg-gray-100 px-6 py-3 rounded-full text-sm"
-                                >
-                                    {item.name}
-                                </div>
-                            ))}
-                        </div>
-                    )}
+              {amenitiesLoading ? (
+                <p className="text-gray-500">Loading amenities...</p>
+              ) : amenities.length === 0 ? (
+                <p className="text-gray-500 italic">
+                  No amenities listed for this property.
+                </p>
+              ) : (
+                <div className="flex flex-wrap gap-3">
+                  {amenities.map((item: any) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center gap-2 bg-gray-100 px-6 py-3 rounded-full text-sm"
+                    >
+                      {item.name}
+                    </div>
+                  ))}
                 </div>
+              )}
+            </div>
 
-                {/* ================= ✅ RELATED PROPERTIES (STYLE MATCHED) ================= */}
-                <div className="mt-16">
-                    <h2 className="text-2xl font-semibold mb-6">Related Properties</h2>
+            {/* 🔼🔼🔼 YOUR EXISTING CODE ENDS HERE 🔼🔼🔼 */}
+          </div>
 
-                    {relatedLoading ? (
-                        <p className="text-gray-500">Loading related properties...</p>
-                    ) : relatedProperties.length === 0 ? (
-                        <p className="text-gray-500 italic">No related properties found.</p>
-                    ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
-                            {relatedProperties.map((item) => {
+          {/* ✅ RIGHT SIDE (EMPTY 40%) */}
+          <div className="hidden lg:block w-[40%]" />
+        </div>
 
-                                // ✅ 1. SAFELY EXTRACT IMAGE ARRAY (NO RE-PARSING LOOP)
-                                let imageArray: string[] = [];
+        {/* ================= RELATED PROPERTIES ================= */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-semibold mb-6">Related Properties</h2>
 
-                                if (Array.isArray(item.main_image)) {
-                                    imageArray = item.main_image;
-                                } else if (typeof item.main_image === "string") {
-                                    try {
-                                        const parsed = JSON.parse(item.main_image);
-                                        if (Array.isArray(parsed)) {
-                                            imageArray = parsed;
-                                        }
-                                    } catch (error) {
-                                        imageArray = [];
-                                    }
-                                }
+          {relatedLoading ? (
+            <p className="text-gray-500">Loading related properties...</p>
+          ) : relatedProperties.length === 0 ? (
+            <p className="text-gray-500 italic">No related properties found.</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+              {relatedProperties.map((item: any) => {
+                // SAFELY extract image array (same stable handling)
+                let imageArray: string[] = [];
+                if (Array.isArray(item.main_image)) {
+                  imageArray = item.main_image;
+                } else if (typeof item.main_image === "string") {
+                  try {
+                    const parsed = JSON.parse(item.main_image);
+                    if (Array.isArray(parsed)) imageArray = parsed;
+                  } catch {
+                    imageArray = [];
+                  }
+                }
 
-                                // ✅ 2. BUILD A STABLE FINAL IMAGE URL (NO CHANGE PER RENDER)
-                                const stableImageUrl =
-                                    imageArray.length > 0 && imageArray[0]
-                                        ? imageArray[0].startsWith("http")
-                                            ? imageArray[0]
-                                            : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${imageArray[0].replace(/^\//, "")}`
-                                        : "/placeholder.png";
+                const stableImageUrl =
+                  imageArray.length > 0 && imageArray[0]
+                    ? imageArray[0].startsWith("http")
+                      ? imageArray[0]
+                      : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${imageArray[0].replace(
+                          /^\//,
+                          ""
+                        )}`
+                    : "/placeholder.png";
 
-                                return (
-                                    <div
-                                        key={item.id}
-                                        className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 w-full flex flex-col"
-                                    >
-                                        <img
-                                            src={stableImageUrl}
-                                            alt={item.title}
-                                            className="w-full h-40 sm:h-48 md:h-52 lg:h-56 object-cover"
-                                            loading="lazy"
+                return (
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 w-full flex flex-col"
+                  >
+                    <img
+                      src={stableImageUrl}
+                      alt={item.title}
+                      className="w-full h-40 sm:h-48 md:h-52 lg:h-56 object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        if (e.currentTarget.src.includes("placeholder")) return;
+                        e.currentTarget.src = "/placeholder.png";
+                      }}
+                    />
 
-                                            // ✅ 3. HARD STOP INFINITE ERROR LOOP (NO MORE FLICKER)
-                                            onError={(e) => {
-                                                if (e.currentTarget.src.includes("placeholder")) return;
-                                                e.currentTarget.src = "/placeholder.png";
-                                            }}
-                                        />
+                    <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between h-full">
+                      <div className="flex flex-col gap-3 flex-grow">
+                        <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#171717] font-semibold break-words">
+                          {item.title}
+                        </h3>
 
-                                        <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between h-full">
-                                            <div className="flex flex-col gap-3 flex-grow">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            <img src={locationIcon} className="w-4 h-4" />
+                            <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252] break-words">
+                              {item.location}
+                            </span>
+                          </div>
 
-                                                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#171717] font-semibold break-words">
-                                                    {item.title}
-                                                </h3>
+                          <div className="flex items-center gap-1">
+                            <img src={staricon} className="w-4 h-4" />
+                            <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252]">
+                              {item.rating || 0}
+                            </span>
+                          </div>
+                        </div>
 
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-1">
-                                                        <img src={locationIcon} className="w-4 h-4" />
-                                                        <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252] break-words">
-                                                            {item.location}
-                                                        </span>
-                                                    </div>
+                        <div className="flex items-center">
+                          <img src={guesticon} className="w-4 h-4" />
+                          <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252] ml-1">
+                            {item.max_guests} guests
+                          </span>
+                        </div>
+                      </div>
 
-                                                    <div className="flex items-center gap-1">
-                                                        <img src={staricon} className="w-4 h-4" />
-                                                        <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252]">
-                                                            {item.rating || 0}
-                                                        </span>
-                                                    </div>
-                                                </div>
+                      <div className="flex items-center justify-between mt-4 border-t border-[#E5E5E5] pt-3">
+                        <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl">
+                          £{item.price}
+                          <span className="text-[#737373] text-xs sm:text-sm md:text-base">
+                            {" "}
+                            / night
+                          </span>
+                        </p>
 
-                                                <div className="flex items-center">
-                                                    <img src={guesticon} className="w-4 h-4" />
-                                                    <span className="text-xs sm:text-sm md:text-base lg:text-lg text-[#525252] ml-1">
-                                                        {item.max_guests} guests
-                                                    </span>
-                                                </div>
-
-                                            </div>
-
-                                            <div className="flex items-center justify-between mt-4 border-t border-[#E5E5E5] pt-3">
-                                                <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl">
-                                                    £{item.price}
-                                                    <span className="text-[#737373] text-xs sm:text-sm md:text-base">
-                                                        {" "} / night
-                                                    </span>
-                                                </p>
-
-                                                <button
-                                                    onClick={() => navigate(`/property/${item.id}`)}
-                                                    className="
+                        <button
+                          onClick={() => navigate(`/property/${item.id}`)}
+                          className="
                     bg-[#7FA38B] text-white
                     py-1.5 md:py-1
                     px-4 md:px-3
@@ -973,27 +1497,21 @@ export default function PropertyDetails() {
                     transition
                     cursor-pointer
                   "
-                                                >
-                                                    View Details
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-
-
-
-
-                <ReviewChatModal />
-                <PropertyReviewsCarousel propertyId={property.id} />
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
+          )}
         </div>
-    );
+
+        <ReviewChatModal />
+        <PropertyReviewsCarousel propertyId={property.id} />
+      </div>
+    </div>
+  );
 }
-
-
-
