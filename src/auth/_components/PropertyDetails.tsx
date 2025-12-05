@@ -195,7 +195,7 @@ const totalPrice = rentTotal + cleaningFee + bookingFee;
         <SwiperSlide key={i}>
           <img
             src={img}
-            className="w-full h-[400px] object-cover rounded-xl"
+            className="w-full h-[400px] lg:h-[600px] object-cover rounded-xl"
             loading="lazy"
             onError={(e) => {
               if (!e.currentTarget.src.includes("placeholder")) {
@@ -221,7 +221,7 @@ const totalPrice = rentTotal + cleaningFee + bookingFee;
         <SwiperSlide key={i}>
           <img
             src={img}
-            className={`w-full h-20 object-cover rounded-lg cursor-pointer ${
+            className={`w-full h-20 lg:h-40 object-cover rounded-lg cursor-pointer ${
               activeIndex === i ? "opacity-100" : "opacity-40"
             }`}
             onError={(e) => {
@@ -235,7 +235,7 @@ const totalPrice = rentTotal + cleaningFee + bookingFee;
   </div>
 
   {/* ================= RIGHT — IMAGE GRID (50%) ================= */}
-  <div className="w-full lg:w-1/2 grid grid-cols-2 grid-rows-2 gap-3 h-[400px]">
+  <div className="w-full lg:w-1/2 grid grid-cols-2 grid-rows-2 gap-3 h-[400px] lg:h-[600px]">
 
     {images.slice(0, 4).map((img, index) => {
       const remaining = images.length - 4;
@@ -271,7 +271,7 @@ const totalPrice = rentTotal + cleaningFee + bookingFee;
 
     
            
-        {/* ---------------- LEFT CONTENT (60%) + EMPTY RIGHT (40%) ---------------- */}
+        {/* ---------------- LEFT CONTENT (50%) + EMPTY RIGHT (40%) ---------------- */}
        <div className="w-full flex flex-col lg:flex-row justify-start gap-6">
           
           {/* ✅ LEFT SIDE (50%) */}
@@ -362,6 +362,7 @@ const totalPrice = rentTotal + cleaningFee + bookingFee;
       )}&output=embed`}
     />
   </div>
+
 </div>
 
   
