@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
+
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
@@ -9,16 +8,9 @@ import logo from "../../images/headerlogo.png";
 export default function Navbar() {
     const location = useLocation();
     const [open, setOpen] = useState(false);
-    const authFromRedux = useSelector((state: RootState) => state.auth);
 
-// ✅ Instant fallback from persisted storage (no delay)
-const persistedAuth = JSON.parse(
-  localStorage.getItem("persist:auth") || "null"
-);
 
-// ✅ Final safe auth check
-const isAuthenticated =
-  authFromRedux?.isAuthenticated || persistedAuth?.isAuthenticated;
+
 
 
 
@@ -77,8 +69,8 @@ const isAuthenticated =
                 </nav>
 
                 {/* Desktop Button */}
-                <Link
-  to={isAuthenticated ? "/allproperties" : "/login"}
+            <Link
+  to="/allproperties"
   className="
     hidden md:block 
     bg-[#7FA38B] text-white 
@@ -94,6 +86,7 @@ const isAuthenticated =
 >
   Book now
 </Link>
+
 
 
                 {/* Hamburger icon (mobile only) */}
@@ -135,7 +128,7 @@ const isAuthenticated =
 
                     {/* Mobile Button */}
                     <Link
-                         to={isAuthenticated ? "/allproperties" : "/login"}
+                         to="/allproperties" 
                         className="bg-[#7FA38B] text-white px-6 py-3 rounded-full text-[18px] hover:bg-[#5d8d6d] cursor-pointer"
                     >
                         Book now
