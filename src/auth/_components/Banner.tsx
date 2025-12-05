@@ -50,7 +50,7 @@ export default function Banner() {
                             mt-2 md:mt-4 opacity-90
                         "
                     >
-                        Luxury short-term stays in the UK’s premium locations
+                        Quality short-term stays in the Perth’s premium locations
                     </p>
                 </div>
 
@@ -111,7 +111,8 @@ export default function Banner() {
 
                             {locationOpen && (
                                 <ul className="absolute left-0 right-0 mt-2 bg-white border rounded-xl overflow-hidden shadow-md z-50">
-                                    {["Perth", "Sydney", "Melbourne"].map((city) => (
+                                    {["Applecross", "Alkimos", "Ardross","Attadale","Balcatta","Churchlands","Dalkeith","Forrestfield","Fremantle","Swanbourne","Alexander Heights","Alfred Cove",
+                                    "City Beach","East Rockingham","Floreat","Piara Waters","Aveley","Carine","Claremont","Armadale","Subiaco","Baldivis","Ashfield"].map((city) => (
                                         <li
                                             key={city}
                                             onClick={() => {

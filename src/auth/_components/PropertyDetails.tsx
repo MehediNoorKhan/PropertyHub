@@ -1121,7 +1121,7 @@ export default function PropertyDetails() {
     );
   }, [property]);
 
-  // related properties (exclude current), max 3
+  // related properties (exclude current), maximum 3 properties will be displayed
   const relatedProperties =
     allPropertiesData?.data
       ?.filter((p: any) => String(p.id) !== String(id))
