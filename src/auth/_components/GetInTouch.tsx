@@ -1,6 +1,5 @@
 import locationIcon from "../../images/locationicon.png";
 import emailIcon from "../../images/emailIcon.png";
-import phoneIcon from "../../images/phoneIcon.png";
 import timeIcon from "../../images/timeicon.png";
 
 interface FeatureItem {
@@ -15,20 +14,14 @@ const GetInTouch: React.FC = () => {
         {
             icon: locationIcon,
             title: "Address",
-            desc: "Dhaka, Bangladesh",
+            desc: "Perth, Western Australia",
             msg: "Visit us at our office",
         },
         {
             icon: emailIcon,
             title: "Email",
-            desc: "support@guestproperty.com",
+            desc: "hello@guestproperth.com.au",
             msg: "Send us an email anytime",
-        },
-        {
-            icon: phoneIcon,
-            title: "Phone",
-            desc: "+880 1234 567890",
-            msg: "Mon-Fri from 9am to 6pm",
         },
         {
             icon: timeIcon,
@@ -91,11 +84,10 @@ const GetInTouch: React.FC = () => {
                     grid
                     grid-cols-1
                     sm:grid-cols-2
-                    lg:grid-cols-4
+                    lg:grid-cols-3
                     gap-4
-                    sm:gap-2
-                    md:gap-4
-                    lg:gap-4
+                    md:gap-6
+                    lg:gap-8
                 "
             >
                 {features.map((item, idx) => (
