@@ -8,7 +8,7 @@ import sectionbg from "../../images/propertydetailsbg.png";
 // import checkinicon from "../../images/checkinicon.png";
 // import checkouticon from "../../images/checkouticon.png";
 import locationicongreen from "../../images/locationgreenicon.png";
-import locationIcon from "../../images/locationicon.png";
+// import locationIcon from "../../images/locationicon.png";
 import calendarIcon from "../../images/calendaricon.png";
 import staricon from "../../images/staricon.png";
 import guesticon from "../../images/guesticongray.png";
@@ -16,11 +16,11 @@ import bedroomicon from "../../images/bedroomicon.png";
 import bathroomicon from "../../images/bathroomicon.png";
 
 import ReviewChatModal from "./ReviewChatModal";
-import PropertyReviewsCarousel from "./PropertyReviewsCarousel";
+// import PropertyReviewsCarousel from "./PropertyReviewsCarousel";
 
 import {
   useGetSinglePropertyQuery,
-  useGetAllPropertiesQuery,
+  // useGetAllPropertiesQuery,
   useGetAmenitiesQuery,
 } from "@/store/api/auth.api";
 
@@ -44,8 +44,7 @@ export default function PropertyDetails() {
 };
 
   // related properties (all)
-  const { data: allPropertiesData, isLoading: relatedLoading } =
-    useGetAllPropertiesQuery();
+  // const { data: allPropertiesData } = useGetAllPropertiesQuery();
 
   // single property
   const { data, isLoading } = useGetSinglePropertyQuery(id!);
@@ -102,10 +101,10 @@ const images = useMemo(() => {
 
 
   // related properties (exclude current), maximum 3 properties will be displayed
-  const relatedProperties =
-    allPropertiesData?.data
-      ?.filter((p: any) => String(p.id) !== String(id))
-      .slice(0, 3) || [];
+  // const relatedProperties =
+  //   allPropertiesData?.data
+  //     ?.filter((p: any) => String(p.id) !== String(id))
+  //     .slice(0, 3) || [];
 
   // swiper refs and state
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
