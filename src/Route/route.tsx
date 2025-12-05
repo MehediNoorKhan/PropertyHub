@@ -7,6 +7,7 @@ import Home from "@/auth/_components/Home";
 import Login from "@/auth/_components/Login";
 import MakePayment from "@/auth/_components/MakePayment";
 import PropertyDetails from "@/auth/_components/PropertyDetails";
+import PropertyImages from "@/auth/_components/PropertyImages";
 import RootLayout from "@/auth/_components/RootLayout";
 import Signup from "@/auth/_components/Signup";
 import Verification from "@/auth/_components/Verification";
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
             {
                 path: "changepassword",
                 element: <ChnagePassword></ChnagePassword>
+            },
+            {
+                path:"/property-images/:id",
+                element:<PropertyImages></PropertyImages>
             },
 
         ]

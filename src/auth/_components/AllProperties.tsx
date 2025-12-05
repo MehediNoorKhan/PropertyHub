@@ -304,7 +304,7 @@
 //                                     "
 //                                 >
 //                                     <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl">
-//                                         £{item.rent}
+//                                         A${item.rent}
 //                                         <span className="text-[#737373] text-xs sm:text-sm md:text-base">
 //                                             {" "}
 //                                             / night
@@ -522,7 +522,7 @@
 
 //                   <div className="flex items-center justify-between mt-4 border-t pt-3">
 //                     <p className="font-bold text-base sm:text-lg md:text-xl">
-//                       £{item.price}
+//                       A${item.price}
 //                       <span className="text-[#737373] text-sm"> / night</span>
 //                     </p>
 
@@ -868,49 +868,41 @@ const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
           {sortedProperties.map((item: any) => {
 
+            const getImageSrc = (item: any) => {
+  const img = item?.multiple_image?.[0];
 
-  // ✅ 1. SAFELY EXTRACT IMAGE ARRAY (NO RE-PARSING LOOP)
-  let imageArray: string[] = [];
+  if (!img) return "/placeholder.png";
 
-  if (Array.isArray(item.main_image)) {
-    imageArray = item.main_image;
-  } else if (typeof item.main_image === "string") {
-    try {
-      const parsed = JSON.parse(item.main_image);
-      if (Array.isArray(parsed)) {
-        imageArray = parsed;
-      }
-    } catch (error) {
-      imageArray = [];
-    }
-  }
+  if (img.startsWith("http")) return img;
 
-  // ✅ 2. BUILD A STABLE FINAL IMAGE URL (NO CHANGE PER RENDER)
-  const stableImageUrl =
-    imageArray.length > 0 && imageArray[0]
-      ? imageArray[0].startsWith("http")
-        ? imageArray[0]
-        : `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/${imageArray[0].replace(/^\//, "")}`
-      : "/placeholder.png";
+  return `${import.meta.env.VITE_API_URL}${img}`;
+};
+
+
 
   return (
     <div
       key={item.id}
       className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 w-full flex flex-col"
     >
-      <img
-        src={stableImageUrl}
-        alt={item.title}
-        className="w-full h-40 sm:h-48 md:h-52 lg:h-56 object-cover"
+<img
+  src={getImageSrc(item)}
+  alt={item.title}
+  loading="lazy"
+  decoding="async"
+  className="w-full h-full object-cover"
+  onError={(e) => {
+    const target = e.currentTarget;
+    if (!target.dataset.fallback) {
+      target.dataset.fallback = "true";
+      target.src = "/placeholder.png";
+    }
+  }}
+/>
 
-        loading="lazy"
 
-        // ✅ 3. HARD STOP INFINITE ERROR LOOP (NO MORE FLICKER)
-        onError={(e) => {
-          if (e.currentTarget.src.includes("placeholder")) return;
-          e.currentTarget.src = "/placeholder.png";
-        }}
-      />
+
+
 
                 <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between h-full">
                   <div className="flex flex-col gap-3 flex-grow">
@@ -946,7 +938,7 @@ const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
 
                   <div className="flex items-center justify-between mt-4 border-t border-[#E5E5E5] pt-3">
                     <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl">
-                      £{item.price}
+                      A${item.price}
                       <span className="text-[#737373] text-xs sm:text-sm md:text-base">
                         {" "} / night
                       </span>
