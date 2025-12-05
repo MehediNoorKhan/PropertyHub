@@ -1,8 +1,8 @@
 [
 {
 "id":1,
-"title": "Luxury Lake House Retreat",
-"location": "Lake District, UK",
+"title": "Quality Lake House Retreat",
+"location": "Dalkeith, Perth",
 "rating": 4.9,
 "reviews": 126,
 "rent": 350,
@@ -45,7 +45,7 @@
 {
 "id":2,
 "title": "Seaside Grand Villa",
-"location": "Brighton, UK",
+"location": "Scarborough, Perth" ,
 "rating": 4.8,
 "reviews": 98,
 "guest":8,
@@ -72,7 +72,7 @@
 "reviewer_name": "David White",
 "review_date": "2024-12-30",
 "review_rating": 4,
-"review": "Great value for a luxury villa."
+"review": "Great value for a quality villa."
 },
 {
 "reviewer_image": "https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg",
@@ -86,13 +86,13 @@
 {
 "id":3,
 "title": "Penthouse Skyline Suite",
-"location": "London, UK",
+"location": "Floreat, Perth",
 "rating": 4.7,
 "reviews": 142,
 "rent": 360,
 "guest":8,
 "room_image": "https://i.ibb.co.com/sJgj70fp/hotelimage1.png",
-"description": "A modern penthouse located in the heart of London with panoramic skyline views, premium interiors, and hotel-class amenities.",
+"description": "A modern penthouse located in the heart of Perth with panoramic skyline views, premium interiors, and hotel-class amenities.",
 "amenities": [
 "High-Speed Wifi",
 "Air Conditioning",
@@ -142,7 +142,7 @@
 {
     "id":4,
 "title": "Countryside Garden Cottage",
-"location": "Cotswolds, UK",
+"location": "Floreat, Perth",
 "rating": 4.6,
 "reviews": 87,
 "rent": 380,
@@ -184,7 +184,7 @@
 {
     "id":5,
 "title": "Modern Marina Apartment",
-"location": "Liverpool, UK",
+"location": "Kalamunda, Perth Hills",
 "rating": 4.5,
 "reviews": 102,
 "rent": 360,
@@ -226,7 +226,7 @@
 {
     "id":6,
 "title": "Harbour View Executive Condo",
-"location": "Plymouth, UK",
+"location": "East Perth, Perth",
 "rating": 4.8,
 "reviews": 116,
 "rent": 315,
@@ -281,7 +281,7 @@
 {
     "id":7,
 "title": "Snow Peak Mountain Lodge",
-"location": "Scottish Highlands, UK",
+"location": "South Perth, Perth",
 "rating": 4.9,
 "reviews": 140,
 "rent": 430,
@@ -322,7 +322,7 @@
 {
     "id":8,
 "title": "Ocean Breeze Holiday Home",
-"location": "Cornwall, UK",
+"location": "Roleystone, Perth Hills",
 "rating": 4.7,
 "reviews": 101,
 "rent": 315,
@@ -362,8 +362,8 @@
 },
 {
     "id":9,
-"title": "Luxury Lake House Retreat",
-"location": "Lake District, UK",
+"title": "Quality Lake House Retreat",
+"location": "Cottesloe, Perth",
 "rating": 4.9,
 "reviews": 126,
 "rent": 350,
@@ -406,7 +406,7 @@
 {
     "id":10,
 "title": "Seaside Grand Villa",
-"location": "Brighton, UK",
+"location": "Dalkeith, Perth",
 "rating": 4.8,
 "reviews": 98,
 "rent": 340,
@@ -433,7 +433,7 @@
 "reviewer_name": "David White",
 "review_date": "2024-12-30",
 "review_rating": 4,
-"review": "Great value for a luxury villa."
+"review": "Great value for a quality villa."
 },
 {
 "reviewer_image": "https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg",
@@ -447,13 +447,13 @@
 {
     "id":11,
 "title": "Penthouse Skyline Suite",
-"location": "London, UK",
+"location": "Trigg, Perth",
 "rating": 4.7,
 "reviews": 142,
 "rent": 420,
 "guest":5,
 "room_image": "https://i.ibb.co.com/sJgj70fp/hotelimage1.png",
-"description": "A modern penthouse located in the heart of London with panoramic skyline views, premium interiors, and hotel-class amenities.",
+"description": "A modern penthouse located in the heart of Perth with panoramic skyline views, premium interiors, and hotel-class amenities.",
 "amenities": [
 "High-Speed Wifi",
 "Air Conditioning",
@@ -489,7 +489,7 @@
 {
     "id":12,
 "title": "Countryside Garden Cottage",
-"location": "Cotswolds, UK",
+"location": "Perth CBD, WA",
 "rating": 4.6,
 "reviews": 87,
 "rent": 280,
@@ -531,7 +531,7 @@
 {
     "id":13,
 "title": "Modern Marina Apartment",
-"location": "Liverpool, UK",
+"location": "Bickley, Perth Hills",
 "rating": 4.5,
 "reviews": 102,
 "rent": 280,
@@ -573,7 +573,7 @@
 {
     "id":14,
 "title": "Harbour View Executive Condo",
-"location": "Plymouth, UK",
+"location": "Victoria Park, Perth",
 "rating": 4.8,
 "reviews": 116,
 "rent": 320,
@@ -614,7 +614,7 @@
 {
     "id":15,
 "title": "Snow Peak Mountain Lodge",
-"location": "Scottish Highlands, UK",
+"location": "Claremont, Perth",
 "rating": 4.9,
 "reviews": 140,
 "rent": 230,
@@ -655,7 +655,7 @@
 {
     "id":16,
 "title": "Ocean Breeze Holiday Home",
-"location": "Cornwall, UK",
+"location": "Mundaring, Perth Hills",
 "rating": 4.7,
 "reviews": 101,
 "rent": 310,

@@ -37,7 +37,7 @@
 //                         img: pic2,
 //                         name: "Michael Chen",
 //                         role: "Property Manager",
-//                         desc: "Michael ensures every property meets our luxury standards and guests have exceptional experiences."
+//                         desc: "Michael ensures every property meets our quality standards and guests have exceptional experiences."
 //                     },
 //                     {
 //                         img: pic3,

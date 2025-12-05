@@ -576,7 +576,8 @@ const AllProperties: React.FC = () => {
   const [maxPrice, setMaxPrice] = useState<string>("");
 
   const [showFilterDrop, setShowFilterDrop] = useState(false);
-  const [sortType, setSortType] = useState<"up" | "down" | null>(null);
+  // const [sortType, setSortType] = useState<"up" | "down" | null>(null);
+  const [sortType, setSortType] = useState<"A-Z" | "Z-A">("A-Z");
   const [priceError, setPriceError] = useState<string>("");
 
 
@@ -599,10 +600,16 @@ const AllProperties: React.FC = () => {
   setPriceError(""); // ✅ clear error if valid
 };
 
- const handleSort = (type: string) => {
-  setSortType(type as "up" | "down");
+//  const handleSort = (type: string) => {
+//   setSortType(type as "up" | "down");
+//   setShowFilterDrop(false);
+// };
+
+const handleSort = (type: "A-Z" | "Z-A") => {
+  setSortType(type);
   setShowFilterDrop(false);
 };
+
 
 
 const filteredProperties = properties.filter((item: any) => {
@@ -628,19 +635,19 @@ const filteredProperties = properties.filter((item: any) => {
 });
 
 // ✅ SORTING STILL APPLIES AFTER FILTERING
-const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
-  if (!sortType) return 0;
+// const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
+//   if (!sortType) return 0;
 
-  if (sortType === "up") {
-    return b.price - a.price; // ✅ HIGH → LOW
-  }
+//   if (sortType === "up") {
+//     return b.price - a.price; // ✅ HIGH → LOW
+//   }
 
-  if (sortType === "down") {
-    return a.price - b.price; // ✅ LOW → HIGH
-  }
+//   if (sortType === "down") {
+//     return a.price - b.price; // ✅ LOW → HIGH
+//   }
 
-  return 0;
-});
+//   return 0;
+// });
 
 
 // ✅ SORT STILL WORKS ON FILTERED DATA
@@ -658,6 +665,22 @@ const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
 //   return 0;
 // });
 
+const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
+  if (!sortType) return 0;
+
+  const locA = a.location?.toLowerCase() || "";
+  const locB = b.location?.toLowerCase() || "";
+
+  if (sortType === "A-Z") {
+    return locA.localeCompare(locB); // ✅ Ascending
+  }
+
+  if (sortType === "Z-A") {
+    return locB.localeCompare(locA); // ✅ Descending
+  }
+
+  return 0;
+});
 
 
   if (isLoading) {
@@ -723,13 +746,16 @@ const sortedProperties = [...filteredProperties].sort((a: any, b: any) => {
                 z-50
               "
             >
-              {[
-                { label: "Price Up", action: "up" },
-                { label: "Price Down", action: "down" },
-              ].map((item) => (
+             {[
+  { label: "A-Z", action: "A-Z" },
+  { label: "Z-A", action: "Z-A" },
+].map((item) => (
+
+
                 <li
                   key={item.action}
-                  onClick={() => handleSort(item.action)}
+               onClick={() => handleSort(item.action as "A-Z" | "Z-A")}
+
                   className="
                     px-4 py-2.5 
                     hover:bg-[#7FA38B] hover:text-white 

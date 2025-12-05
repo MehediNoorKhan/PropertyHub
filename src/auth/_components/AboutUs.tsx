@@ -134,7 +134,7 @@ export default function AboutUs() {
                             "
                         >
                             With over 25 properties across sought-after locations, we combine
-                            luxury comfort with smart AI-driven booking simplicity. Our
+                            quality comfort with smart AI-driven booking simplicity. Our
                             platform eliminates the middleman, allowing guests to book
                             directly and property owners to maximize their earnings.
                         </p>

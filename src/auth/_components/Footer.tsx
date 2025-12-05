@@ -39,7 +39,7 @@ export default function Footer() {
                 <div className="max-w-[248px]">
                     <img src={footerLogo} alt="Guest Pro Logo" className="w-[248px] h-[66px]" />
                     <p className="mt-4 text-[16px] opacity-80 leading-6 max-w-[248px]">
-                        Luxury short-stay properties in <br></br> the UK’s most beautiful <br></br>locations.
+                        Quality short-stay properties in <br></br> the Perth’s most beautiful <br></br>locations.
                     </p>
                 </div>
 

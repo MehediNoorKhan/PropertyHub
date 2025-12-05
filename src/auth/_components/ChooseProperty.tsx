@@ -15,7 +15,7 @@ const ChooseProperty: React.FC = () => {
     const features: FeatureItem[] = [
         {
             icon: luxuryIcon,
-            title: "Luxury Stays",
+            title: "Quality Stays",
             desc: "Handpicked premium properties in stunning locations",
         },
         {
@@ -76,7 +76,7 @@ const ChooseProperty: React.FC = () => {
                     lg:mb-[60px]
                 "
             >
-                Experience the finest in luxury short-stay accommodation
+                Experience the finest in quality short-stay accommodation
             </p>
 
             {/* Cards */}

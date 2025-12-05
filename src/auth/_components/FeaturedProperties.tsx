@@ -20,7 +20,7 @@
 //             </h2>
 
 //             <p className="text-[#525252] text-xs sm:text-sm md:text-base lg:text-xl mt-2 md:mt-4 text-center max-w-xl">
-//                 Handpicked luxury stays for unforgettable experiences
+//                 Handpicked quality stays for unforgettable experiences
 //             </p>
 
 //             {/* Property Cards */}
@@ -217,7 +217,7 @@ const FeaturedProperties = () => {
       </h2>
 
       <p className="text-[#525252] text-xs sm:text-sm md:text-base lg:text-xl mt-2 md:mt-4 text-center max-w-xl">
-        Handpicked luxury stays for unforgettable experiences
+        Handpicked quality stays for unforgettable experiences
       </p>
 
       {/* ✅ Loading State */}
