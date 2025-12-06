@@ -103,23 +103,24 @@ export default function Banner() {
   value={selectedLocation}   // ✅ ONLY value, no defaultValue
   onValueChange={(val) => setSelectedLocation(val)}
 >
-  <SelectTrigger
-    className="
-      w-full border rounded-xl
-      pl-10 pr-4
-      py-6
-      bg-[#F0F0F0]
-      text-[14px] sm:text-[16px]
-      flex items-center justify-between
-      text-[#525252]
-      data-[placeholder]:text-[#717182]
-    "
-  >
-    {/* ✅ PLACEHOLDER WILL NOW SHOW */}
-    <SelectValue placeholder="Select Location" />
-  </SelectTrigger>
+ <SelectTrigger
+  className="
+    w-full border rounded-xl
+    pl-10 pr-4
+    !h-[48px]   /* ✅ FORCE HEIGHT OVERRIDE */
+    bg-[#F0F0F0]
+    text-[14px] sm:text-[16px]
+    flex items-center justify-between
+    text-[#525252]
+    data-[placeholder]:text-[#717182]
+  "
+>
+  <SelectValue placeholder="Select Location" />
+</SelectTrigger>
 
-  <SelectContent className="rounded-xl border bg-gray-200 shadow-md z-50 p-0 text-[#525252]">
+
+
+  <SelectContent className="rounded-xl border bg-gray-200 shadow-md z-50 text-[#525252]">
     <SelectScrollUpButton className="w-full text-center py-2 text-sm text-[#7FA38B]">
       ▲
     </SelectScrollUpButton>
@@ -135,7 +136,14 @@ export default function Banner() {
           <SelectItem
             key={city}
             value={city}
-            className="px-4 py-3 text-[#525252] hover:bg-[#7FA38B]  cursor-pointer transition"
+            className="px-4 py-3 
+              cursor-pointer 
+              transition
+              text-gray-700
+              hover:bg-[#85A790] hover:text-white
+              focus:bg-[#85A790] focus:text-white
+              data-[state=checked]:bg-[#85A790]
+              data-[state=checked]:text-white"
           >
             {city}
           </SelectItem>

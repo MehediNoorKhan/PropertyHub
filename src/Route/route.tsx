@@ -6,8 +6,10 @@ import EnterEmail from "@/auth/_components/EnterEmail";
 import Home from "@/auth/_components/Home";
 import Login from "@/auth/_components/Login";
 import MakePayment from "@/auth/_components/MakePayment";
+import PaymentConfirm from "@/auth/_components/PaymentConfirm";
 import PropertyDetails from "@/auth/_components/PropertyDetails";
 import PropertyImages from "@/auth/_components/PropertyImages";
+import { Review } from "@/auth/_components/Review";
 import RootLayout from "@/auth/_components/RootLayout";
 import Signup from "@/auth/_components/Signup";
 import Verification from "@/auth/_components/Verification";
@@ -68,6 +70,14 @@ export const router = createBrowserRouter([
                 path:"/property-images/:id",
                 element:<PropertyImages></PropertyImages>
             },
+            {
+                path:"/paymentconfirm/:id",
+                element:<PaymentConfirm></PaymentConfirm>
+            },
+            {
+                path:"/review",
+                element: <Review></Review>
+            }
 
         ]
     },

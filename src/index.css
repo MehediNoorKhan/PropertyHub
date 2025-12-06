@@ -140,6 +140,11 @@
 .textprimarygreen{
   color:#7FA38B;
 }
+select option:hover {
+  background-color: #85A790;
+  color: white;
+}
+
 /* ============ GUEST REVIEWS SECTION ============ */
 
 .guest-section {

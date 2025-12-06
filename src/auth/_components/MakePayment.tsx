@@ -445,128 +445,164 @@ const MakePayment: React.FC = () => {
 
         {/* ✅ LEFT — FORM */}
         <div>
-          <h1 className="text-3xl font-bold mb-8">Booking Summary</h1>
+  <h1 className="text-3xl font-bold mb-8">Booking Summary</h1>
 
-          <h3 className="text-xl font-semibold mb-6">Guests Details :</h3>
+  <h3 className="text-xl font-semibold mb-6">Guests Details :</h3>
 
-          <div className="space-y-6">
+  <div className="space-y-6">
 
-            {/* ✅ CHECK IN / OUT */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-1 text-md">Check-in</label>
-                <input
-                  type="date"
-                  {...register("checkin")}
-                  className="input-pill"
-                />
-              </div>
+    {/* ✅ CHECK IN / OUT */}
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <label className="block mb-1 text-md">Check-in</label>
+        <input
+          type="date"
+          {...register("checkin")}
+          placeholder="Select check-in date"
+          className="input-pill"
+        />
+      </div>
 
-              <div>
-                <label className="block mb-1 text-md">Check-out</label>
-                <input
-                  type="date"
-                  {...register("checkout")}
-                  className="input-pill"
-                />
-              </div>
-            </div>
+      <div>
+        <label className="block mb-1 text-md">Check-out</label>
+        <input
+          type="date"
+          {...register("checkout")}
+          placeholder="Select check-out date"
+          className="input-pill"
+        />
+      </div>
+    </div>
 
-            {/* ✅ NAME */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-1 text-md">First Name</label>
-                <input {...register("firstName")} className="input-pill" />
-              </div>
+    {/* ✅ NAME */}
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <label className="block mb-1 text-md">First Name</label>
+        <input
+          {...register("firstName")}
+          placeholder="Enter first name"
+          className="input-pill"
+        />
+      </div>
 
-              <div>
-                <label className="block mb-1 text-md">Last Name</label>
-                <input {...register("lastName")} className="input-pill" />
-              </div>
-            </div>
+      <div>
+        <label className="block mb-1 text-md">Last Name</label>
+        <input
+          {...register("lastName")}
+          placeholder="Enter last name"
+          className="input-pill"
+        />
+      </div>
+    </div>
 
-            <div>
-              <label className="block mb-1 text-md">Email</label>
-              <input {...register("email")} className="input-pill w-full" />
-            </div>
+    <div>
+      <label className="block mb-1 text-md">Email</label>
+      <input
+        {...register("email")}
+        placeholder="Enter your email"
+        className="input-pill w-full"
+      />
+    </div>
 
-            <div>
-              <label className="block mb-1 text-md">Phone Number</label>
-              <input {...register("phone")} className="input-pill w-full" />
-            </div>
+    <div>
+      <label className="block mb-1 text-md">Phone Number</label>
+      <input
+        {...register("phone")}
+        placeholder="Enter phone number"
+        className="input-pill w-full"
+      />
+    </div>
 
-            {/* ✅ GUEST COUNTERS */}
-            <div className="grid grid-cols-2 gap-4">
+    {/* ✅ GUEST COUNTERS (NO PLACEHOLDERS ADDED AS PER YOUR REQUEST) */}
+    <div className="grid grid-cols-2 gap-4">
 
-              {/* ADULTS */}
-              <div>
-                <label className="block mb-1 text-md">Adults</label>
-                <div className="flex items-center justify-between input-pill">
-                  <button
-                    onClick={() => setValue("adults", Math.max(1, adults - 1))}
-                  >
-                    <BsDash />
-                  </button>
-                  <span>{adults}</span>
-                  <button
-                    onClick={() => setValue("adults", adults + 1)}
-                  >
-                    <BsPlus />
-                  </button>
-                </div>
-              </div>
-
-              {/* CHILDREN */}
-              <div>
-                <label className="block mb-1 text-md">Children</label>
-                <div className="flex items-center justify-between input-pill">
-                  <button
-                    onClick={() =>
-                      setValue("children", Math.max(0, children - 1))
-                    }
-                  >
-                    <BsDash />
-                  </button>
-                  <span>{children}</span>
-                  <button
-                    onClick={() => setValue("children", children + 1)}
-                  >
-                    <BsPlus />
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-            <div>
-              <label className="block mb-1 text-md">Address</label>
-              <input {...register("address")} className="input-pill w-full" />
-            </div>
-
-            <div>
-              <label className="block mb-1 text-md">City</label>
-              <input {...register("city")} className="input-pill w-full" />
-            </div>
-
-            <div>
-              <label className="block mb-1 text-md">Country</label>
-              <input {...register("country")} className="input-pill w-full" />
-            </div>
-
-            <div>
-              <label className="block mb-1 text-md">Postal Code</label>
-              <input {...register("postalCode")} className="input-pill w-full" />
-            </div>
-
-            <div>
-              <label className="block mb-2 text-md">Booking Comments</label>
-              <textarea
-                {...register("message")}
-                className="input-pill w-full h-32 resize-none"
-              />
-            </div>
-          </div>
+      {/* ADULTS */}
+      <div>
+        <label className="block mb-1 text-md">Adults</label>
+        <div className="flex items-center justify-between input-pill">
+          <button
+            onClick={() => setValue("adults", Math.max(1, adults - 1))}
+          >
+            <BsDash />
+          </button>
+          <span>{adults}</span>
+          <button
+            onClick={() => setValue("adults", adults + 1)}
+          >
+            <BsPlus />
+          </button>
         </div>
+      </div>
+
+      {/* CHILDREN */}
+      <div>
+        <label className="block mb-1 text-md">Children</label>
+        <div className="flex items-center justify-between input-pill">
+          <button
+            onClick={() =>
+              setValue("children", Math.max(0, children - 1))
+            }
+          >
+            <BsDash />
+          </button>
+          <span>{children}</span>
+          <button
+            onClick={() => setValue("children", children + 1)}
+          >
+            <BsPlus />
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <label className="block mb-1 text-md">Address</label>
+      <input
+        {...register("address")}
+        placeholder="Enter street address"
+        className="input-pill w-full"
+      />
+    </div>
+
+    <div>
+      <label className="block mb-1 text-md">City</label>
+      <input
+        {...register("city")}
+        placeholder="Enter city"
+        className="input-pill w-full"
+      />
+    </div>
+
+    <div>
+      <label className="block mb-1 text-md">Country</label>
+      <input
+        {...register("country")}
+        placeholder="Enter country"
+        className="input-pill w-full"
+      />
+    </div>
+
+    <div>
+      <label className="block mb-1 text-md">Postal Code</label>
+      <input
+        {...register("postalCode")}
+        placeholder="Enter postal code"
+        className="input-pill w-full"
+      />
+    </div>
+
+    <div>
+      <label className="block mb-2 text-md">Booking Comments</label>
+      <textarea
+        {...register("message")}
+        placeholder="Add any special requests or comments..."
+        className="input-pill w-full h-32 resize-none"
+      />
+    </div>
+  </div>
+</div>
+
 
         {/* ✅ RIGHT — BOOKING CARD (UNCHANGED) */}
         <div className="w-full max-w-2xl mx-auto">
@@ -605,7 +641,7 @@ const MakePayment: React.FC = () => {
             <img src={stripeLogo} className="h-20 w-36 rounded-2xl" />
           </div>
 
-          <button className="w-full mt-8 bg-[#85A790] text-white py-4 rounded-full text-lg font-semibold hover:opacity-90 transition">
+          <button className="w-full mt-8 bg-[#85A790] text-white py-4 rounded-full text-lg font-semibold hover:opacity-90 transition"  onClick={() => navigate(`/paymentconfirm/${id}`)}>
             Proceed to Payment
           </button>
 
