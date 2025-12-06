@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import locationIcon from "../../images/locationicon.png";
 import starIcon from "../../images/star.png";
 import guestsicon from "../../images/guestsicon.png";
+import alternativeImage from "../../images/hotelimag2.png";
 import { useGetAllPropertiesQuery } from "@/store/api/auth.api";
 
 const FeaturedProperties = () => {
@@ -99,7 +100,7 @@ const FeaturedProperties = () => {
               >
                 {/* ✅ FIXED IMAGE */}
                 <img
-                  src={stableImageUrl}
+                  src={stableImageUrl || alternativeImage}
                   alt={item.title}
                   className="w-full h-40 sm:h-44 md:h-48 lg:h-52 object-cover cursor-pointer"
                   loading="lazy"

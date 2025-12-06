@@ -5,14 +5,23 @@ import calendarIcon from "../../images/calendaricon.png";
 import guestsIcon from "../../images/guestsicon.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+} from "@/components/ui/select";
 
 export default function Banner() {
-    const [locationOpen, setLocationOpen] = useState(false);
+    // const [locationOpen, setLocationOpen] = useState(false);
     const [guestsOpen, setGuestsOpen] = useState(false);
 
-    const [selectedLocation, setSelectedLocation] = useState("Select Location");
+    const [selectedLocation, setSelectedLocation] = useState<string | undefined>(undefined)
     const [selectedGuests, setSelectedGuests] = useState("Guests");
-
     const dateRef = useRef<HTMLInputElement>(null);
     const dateOutRef = useRef<HTMLInputElement>(null);
 
@@ -65,74 +74,84 @@ export default function Banner() {
                     "
                 >
                     {/* LOCATION */}
-                    <div className="flex-1 relative">
-                        <label
-                            className="
-                                block text-[#171717] 
-                                text-[20px] md:text-[18px] 
-                                mb-2 md:mb-4 
-                                font-medium
-                            "
-                        >
-                            Location
-                        </label>
+{/* LOCATION */}
+<div className="flex-1 relative">
+  <label
+    className="
+      block text-[#171717]
+      text-[14px] sm:text-[16px] md:text-[20px]
+      mb-1 sm:mb-2 md:mb-3
+      font-medium
+    "
+  >
+    Location
+  </label>
 
-                        <div className="relative">
-                            <button
-                                onClick={() => setLocationOpen(!locationOpen)}
-                                className="
-                                    w-full text-left border rounded-xl 
-                                    pl-10 pr-3 py-3 md:py-3 
-                                    text-[16px] md:text-[14px]
-                                    bg-[#F0F0F0]
-                                    text-[#717182] 
-                                    cursor-pointer
-                                "
-                            >
-                                {selectedLocation}
-                            </button>
+  <div className="relative">
+    {/* ✅ left icon */}
+    <img
+      src={locationIcon}
+      alt="location icon"
+      className="
+        absolute left-3 sm:left-4 top-1/2 -translate-y-1/2
+        w-4 sm:w-5 opacity-80 pointer-events-none
+      "
+    />
 
-                            <img
-                                src={locationIcon}
-                                alt="location icon"
-                                className="
-                                    absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 
-                                    w-4 sm:w-5 opacity-80 pointer-events-none
-                                "
-                            />
+    {/* ✅ shadcn Select */}
+<Select
+  value={selectedLocation}   // ✅ ONLY value, no defaultValue
+  onValueChange={(val) => setSelectedLocation(val)}
+>
+  <SelectTrigger
+    className="
+      w-full border rounded-xl
+      pl-10 pr-4
+      py-6
+      bg-[#F0F0F0]
+      text-[14px] sm:text-[16px]
+      flex items-center justify-between
+      text-[#525252]
+      data-[placeholder]:text-[#717182]
+    "
+  >
+    {/* ✅ PLACEHOLDER WILL NOW SHOW */}
+    <SelectValue placeholder="Select Location" />
+  </SelectTrigger>
 
-                            <MdKeyboardArrowDown
-                                onClick={() => setLocationOpen(!locationOpen)}
-                                className="
-                                    absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 
-                                    w-4 sm:w-5 text-[#717182] cursor-pointer
-                                "
-                            />
+  <SelectContent className="rounded-xl border bg-gray-200 shadow-md z-50 p-0 text-[#525252]">
+    <SelectScrollUpButton className="w-full text-center py-2 text-sm text-[#7FA38B]">
+      ▲
+    </SelectScrollUpButton>
 
-                            {locationOpen && (
-                                <ul className="absolute left-0 right-0 mt-2 bg-white border rounded-xl overflow-hidden shadow-md z-50">
-                                    {["Applecross", "Alkimos", "Ardross","Attadale","Balcatta","Churchlands","Dalkeith","Forrestfield","Fremantle","Swanbourne","Alexander Heights","Alfred Cove",
-                                    "City Beach","East Rockingham","Floreat","Piara Waters","Aveley","Carine","Claremont","Armadale","Subiaco","Baldivis","Ashfield"].map((city) => (
-                                        <li
-                                            key={city}
-                                            onClick={() => {
-                                                setSelectedLocation(city);
-                                                setLocationOpen(false);
-                                            }}
-                                            className="
-                                                px-4 py-2 sm:py-3 
-                                                hover:bg-[#7FA38B] hover:text-white 
-                                                cursor-pointer text-[#717182]
-                                                transition
-                                            "
-                                        >
-                                            {city}
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    </div>
+    <SelectGroup>
+      <div className="max-h-48 overflow-y-auto">
+        {[
+          "Applecross","Alkimos","Ardross","Attadale","Balcatta","Churchlands",
+          "Dalkeith","Forrestfield","Fremantle","Swanbourne","Alexander Heights",
+          "Alfred Cove","City Beach","East Rockingham","Floreat","Piara Waters",
+          "Aveley","Carine","Claremont","Armadale","Subiaco","Baldivis","Ashfield"
+        ].map((city) => (
+          <SelectItem
+            key={city}
+            value={city}
+            className="px-4 py-3 text-[#525252] hover:bg-[#7FA38B]  cursor-pointer transition"
+          >
+            {city}
+          </SelectItem>
+        ))}
+      </div>
+    </SelectGroup>
+
+    <SelectScrollDownButton className="w-full text-center py-2 text-sm text-gray-500">
+      ▼
+    </SelectScrollDownButton>
+  </SelectContent>
+</Select>
+
+  </div>
+</div>
+
 
                     {/* CHECK IN */}
                     <div className="flex-1 relative">
